@@ -1,0 +1,63 @@
+# for cmd color
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# for cmd options
+alias ll='ls -lhF'
+alias la='ls -A'
+alias l='ls -CF'
+alias du='du -h'
+alias df='df -h'
+alias free='free -h'
+alias gcc='gcc -Wall'
+
+# for fast run
+alias rg='ranger'
+alias cl='clear'
+alias pt='ping -c4 t.cn'
+alias lg='lazygit'
+alias ff='fzf'
+alias tz='tsocks trans -t zh'
+alias qq='exit'
+
+# simple script
+function grepgbk() { 
+    grep -rn $(echo $1 | iconv -f utf8 -t gb18030) $2;
+}
+
+function mirrorup() {
+    mirror_urls="https://archlinux.org/mirrorlist/?country=CN&protocol=https&ip_version=4"
+    echo "start update pacman mirrorlists"
+    curl -s "${mirror_urls}" | grep edu | sed -e "s/^#Server/Server/" | rankmirrors -m 0.6 -v - | sudo tee /etc/pacman.d/mirrorlist > /dev/null
+    echo "update pacman mirrorlists done"
+    unset mirror_urls
+}
+
+# for swap cmd
+alias rb='/bin/rm'
+alias rm='myrm.sh'
+alias rl='myrm.sh -l'
+alias rr='myrm.sh -r'
+alias rc='myrm.sh -c'
+alias rcf='myrm.sh -cf'
+alias enca='enca -L zh_CN'
+alias prime="DRI_PRIME=1"
+alias vifm="vifmrun"
+alias radeontop="radeontop -b 03"
+alias scrcpy="scrcpy --power-off-on-close --turn-screen-off --stay-awake --no-clipboard-autosync"
+alias xsecurelock="env XSECURELOCK_AUTH_TIMEOUT=3 XSECURELOCK_PASSWORD_PROMPT=emoticon xsecurelock"
+# alias xsecurelock="env XSECURELOCK_AUTH_TIMEOUT=3 XSECURELOCK_PASSWORD_PROMPT=time xsecurelock"
+alias wttr='curl wttr.in/Wuhou'
+
+# proxy
+alias runproxy="export ALL_PROXY=socks5://127.0.0.1:7777"
+alias unproxy="unset ALL_PROXY"
+alias ipinfo="tsocks curl ipinfo.io" # or url as cip.cc
+
+# rcm
+alias lsrc="RCRC=/home/yiqing/.config/rcm/rcrc lsrc"
+alias mkrc="RCRC=/home/yiqing/.config/rcm/rcrc mkrc"
+alias rcdn="RCRC=/home/yiqing/.config/rcm/rcrc rcdn"
+alias rcup="RCRC=/home/yiqing/.config/rcm/rcrc rcup"

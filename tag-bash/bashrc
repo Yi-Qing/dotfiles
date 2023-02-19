@@ -1,0 +1,43 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+PS1='\[\033[07;36m\] \$ \[\033[01;33m\]\w\[\033[00m\] '
+
+[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+
+# export local bin
+if [[ -d ${HOME}/.local/bin ]];   then
+export PATH="${PATH}:${HOME}/.local/bin"
+fi
+
+# export local script
+if [[ -d ${HOME}/.local/script ]];   then
+export PATH="${PATH}:${HOME}/.local/script"
+fi
+
+# # export arm-none-eabi-gcc
+# if [[ -d ${HOME}/.local/arm-none-eabi-gcc/bin ]]; then
+#     export PATH="${PATH}:${HOME}/.local/arm-none-eabi-gcc/bin"
+# fi
+# 
+# # export arm-linux-gnueabihf-gcc
+# if [[ -d ${HOME}/.local/arm-linux-gnueabihf-gcc/bin ]]; then
+#     export PATH="${PATH}:${HOME}/.local/arm-linux-gnueabihf-gcc/bin"
+# fi
+# 
+# # export aarch64-none-linux-gnu-gcc
+# if [[ -d ${HOME}/.local/aarch-linux-gnueabihf-gcc/bin ]]; then
+#     export PATH="${PATH}:${HOME}/.local/aarch-linux-gnueabihf-gcc/bin"
+# fi
+
+# export xz/zstd OPTIONS
+compression_thread_limit=`nproc`
+let compression_thread_limit--
+export XZ_DEFAULTS="-7 -T ${compression_thread_limit}"
+export ZSTD_CLEVEL=14
+export ZSTD_NBTHREADS=${compression_thread_limit}
+unset compression_thread_limit

@@ -1,0 +1,30 @@
+[user]
+	name = Yi-Qing
+	email = yiqing.wang.sc@foxmail.com
+[color]
+	ui = auto
+[http]
+	postBuffer = 524288000
+[core]
+	editor = vim
+	autocrlf = input
+[diff]
+	tool = vimdiff
+[difftool]
+	trustExitCode = true
+	cmd = nvim -d $LOCAL $REMOTE
+[merge]
+	tool = vimdiff
+[mergetool]
+	keepBackup = false
+	cmd = nvim -f -c "Gdiff" "$MERGED"
+[alias]
+	lg = log --abbrev-commit --graph
+[pull]
+	rebase = true
+# [commit]
+# 	template = ~/.config/git/commit_template
+# [init]
+# 	templatedir = ~/.config/git/template/
+[https]
+	postBuffer = 524288000
