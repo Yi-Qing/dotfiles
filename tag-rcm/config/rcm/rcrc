@@ -1,3 +1,3 @@
-TAGS="bash mpd nvim git"
+TAGS="bash mpd nvim git rcm"
 EXCLUDES="LICENSE README.md"
 

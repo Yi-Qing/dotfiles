@@ -3,15 +3,22 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias diff='diff --color=auto'
 
 # for cmd options
+alias l='ls -CF'
 alias ll='ls -lhF'
 alias la='ls -A'
-alias l='ls -CF'
 alias du='du -h'
 alias df='df -h'
 alias free='free -h'
 alias gcc='gcc -Wall'
+alias nm='nm -g'
+alias radeontop="radeontop -b 03"
+alias enca='enca -L zh_CN'
+alias scrcpy="scrcpy --power-off-on-close --turn-screen-off --stay-awake --no-clipboard-autosync &"
+alias xsecurelock="env XSECURELOCK_AUTH_TIMEOUT=3 XSECURELOCK_PASSWORD_PROMPT=emoticon xsecurelock"
+# alias xsecurelock="env XSECURELOCK_AUTH_TIMEOUT=3 XSECURELOCK_PASSWORD_PROMPT=time xsecurelock"
 
 # for fast run
 alias rg='ranger'
@@ -21,6 +28,42 @@ alias lg='lazygit'
 alias ff='fzf'
 alias tz='tsocks trans -t zh'
 alias qq='exit'
+alias prime="DRI_PRIME=1"
+
+if [ -d /mnt/c ]; then
+    alias cw='cd /mnt/d/root/'
+    alias pk='cd /mnt/e/program/MDK/Pack/'
+    alias es='explorer.exe'
+    alias run32='sudo service binfmt-support start'
+    alias done32='sudo service binfmt-support stop'
+    alias gitsh='/mnt/e/program/Git/bin/bash.exe'
+fi
+
+# for swap cmd
+alias rb='/bin/rm'
+alias rm='myrm.sh'
+alias rl='myrm.sh -l'
+alias rr='myrm.sh -r'
+alias rc='myrm.sh -c'
+alias rcf='myrm.sh -cf'
+
+alias minicom='function _minicom() \
+    { \
+        log="${HOME}/.cache/minicom/`date +%F_%T`.log"; \
+        /bin/minicom -C ${log} -c on -D /dev/ttyS$1 -b 115200; \
+        unset -f _minicom; \
+    }; _minicom'
+
+# proxy
+alias runproxy="export ALL_PROXY=socks5://127.0.0.1:7777"
+alias unproxy="unset ALL_PROXY"
+alias ipinfo="tsocks curl ipinfo.io" # or url as cip.cc
+
+# rcm
+alias lsrc="RCRC=${HOME}/.config/rcm/rcrc lsrc"
+alias mkrc="RCRC=${HOME}/.config/rcm/rcrc mkrc"
+alias rcdn="RCRC=${HOME}/.config/rcm/rcrc rcdn"
+alias rcup="RCRC=${HOME}/.config/rcm/rcrc rcup"
 
 # simple script
 function grepgbk() { 
@@ -35,29 +78,3 @@ function mirrorup() {
     unset mirror_urls
 }
 
-# for swap cmd
-alias rb='/bin/rm'
-alias rm='myrm.sh'
-alias rl='myrm.sh -l'
-alias rr='myrm.sh -r'
-alias rc='myrm.sh -c'
-alias rcf='myrm.sh -cf'
-alias enca='enca -L zh_CN'
-alias prime="DRI_PRIME=1"
-alias vifm="vifmrun"
-alias radeontop="radeontop -b 03"
-alias scrcpy="scrcpy --power-off-on-close --turn-screen-off --stay-awake --no-clipboard-autosync"
-alias xsecurelock="env XSECURELOCK_AUTH_TIMEOUT=3 XSECURELOCK_PASSWORD_PROMPT=emoticon xsecurelock"
-# alias xsecurelock="env XSECURELOCK_AUTH_TIMEOUT=3 XSECURELOCK_PASSWORD_PROMPT=time xsecurelock"
-alias wttr='curl wttr.in/Wuhou'
-
-# proxy
-alias runproxy="export ALL_PROXY=socks5://127.0.0.1:7777"
-alias unproxy="unset ALL_PROXY"
-alias ipinfo="tsocks curl ipinfo.io" # or url as cip.cc
-
-# rcm
-alias lsrc="RCRC=/home/yiqing/.config/rcm/rcrc lsrc"
-alias mkrc="RCRC=/home/yiqing/.config/rcm/rcrc mkrc"
-alias rcdn="RCRC=/home/yiqing/.config/rcm/rcrc rcdn"
-alias rcup="RCRC=/home/yiqing/.config/rcm/rcrc rcup"
