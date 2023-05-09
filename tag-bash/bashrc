@@ -1,6 +1,4 @@
-#
-# ~/.bashrc
-#
+#!/bin/env bash
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -17,30 +15,24 @@ shopt -s checkwinsize
 
 PS1='\[\033[07;36m\] \$ \[\033[01;33m\]\w\[\033[00m\] '
 
+# only for wsl
+# shellcheck source=/dev/null
+[[ -f ~/.bash_wsl ]] && . ~/.bash_wsl
+
+# shellcheck source=/dev/null
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
 # add PATH env
-export LOCAL_TOOLS="${HOME}/.local/bin/tools"
-export PATH="${PATH}:${HOME}/.local/bin/scripts"
-## only for wsl
-if [ -d /mnt/c ]; then
-    export WIN32YANK="${LOCAL_TOOLS}/win32yank"
-    export ADB_TOOLS="${LOCAL_TOOLS}/platform-tools"
-    export ANDROID_NDK_HOME="${LOCAL_TOOLS}/android-ndk"
-    export PATH="${PATH}:${ADB_TOOLS}"
-    export PATH="${PATH}:${WIN32YANK}"
-    export PATH="${PATH}:${ANDROID_NDK_HOME}"
+if [[ -d ${HOME}/.local/bin/scripts ]]; then
+    export PATH="${PATH}:${HOME}/.local/bin/scripts"
 fi
 
 # export xz/zstd OPTIONS
-compression_thread_limit=`nproc`
-let compression_thread_limit--
+compression_thread_limit=$(($(nproc)-1))
 export XZ_DEFAULTS="-7 -T ${compression_thread_limit}"
 export ZSTD_CLEVEL=14
 export ZSTD_NBTHREADS=${compression_thread_limit}
 unset compression_thread_limit
 
-if [ -f ~/.local/bin/scripts/say_todo.sh ]; then
-    . ~/.local/bin/scripts/say_todo.sh
-fi
-
+# say todo
+/bin/which say_todo.sh > /dev/null && say_todo.sh
