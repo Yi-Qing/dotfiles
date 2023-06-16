@@ -1,0 +1,181 @@
+{
+    "[markdown]": {
+        "files.trimTrailingWhitespace": false
+    },
+    "editor.fontSize": 15,
+    "editor.formatOnSave": true,
+    "editor.fontLigatures": true,
+    "editor.formatOnPaste": true,
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 120,
+    "editor.minimap.enabled": false,
+    "editor.lineNumbers": "relative",
+    "editor.fontFamily": "FiraCode Nerd Font",
+    "editor.wrappingIndent": "indent",
+    "editor.cursorBlinking": "smooth",
+    "editor.renderLineHighlight": "all",
+    "editor.scrollBeyondLastLine": false,
+    "editor.renderWhitespace": "trailing",
+    "editor.emptySelectionClipboard": false,
+    "editor.codeLensFontFamily": "FiraCode Nerd Font",
+    "editor.acceptSuggestionOnEnter": "smart",
+    "editor.cursorSmoothCaretAnimation": "off",
+    "editor.copyWithSyntaxHighlighting": false,
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    "editor.unicodeHighlight.includeComments": false,
+    "editor.unicodeHighlight.ambiguousCharacters": true,
+    "editor.unicodeHighlight.invisibleCharacters": true,
+    "editor.find.seedSearchStringFromSelection": "selection",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": false
+    },
+    "editor.rulers": [
+        80
+    ],
+    // workbench
+    "workbench.reduceMotion": "on",
+    "workbench.startupEditor": "readme",
+    "workbench.enableExperiments": false,
+    "workbench.activityBar.visible": false, // may true
+    "workbench.editor.limit.enabled": true,
+    "workbench.layoutControl.enabled": false,
+    "workbench.editor.tabCloseButton": "off",
+    "workbench.colorTheme": "Solarized Dark",
+    "workbench.list.defaultFindMode": "filter",
+    "workbench.editor.limit.perEditorGroup": true,
+    "workbench.settings.enableNaturalLanguageSearch": false,
+    // window
+    "search.collapseResults": "auto",
+    "explorer.confirmDelete": false,
+    "explorer.compactFolders": false,
+    "window.menuBarVisibility": "toggle",
+    // file
+    "files.eol": "\n",
+    "files.autoGuessEncoding": true,
+    "files.trimFinalNewlines": true,
+    "files.insertFinalNewline": true,
+    "files.autoSave": "onFocusChange",
+    "files.trimTrailingWhitespace": true,
+    "search.useIgnoreFiles": false,
+    "files.exclude": {
+        "**/out*/": true,
+        "**/.vs*/": true,
+        "**/*.rej": true,
+        "**/*.user/": true,
+        "**/build*/": true,
+        "**/*.patch": true,
+        "**/.cache/": true,
+        "**/.clangd/": true,
+        "**/.clang-*": true,
+        "**/compile_commands.json*": true
+    },
+    // other
+    "zenMode.hideTabs": false,
+    "zenMode.hideStatusBar": false,
+    "zenMode.hideLineNumbers": false,
+    "task.autoDetect": "off",
+    "search.smartCase": true,
+    "search.seedOnFocus": true,
+    "search.showLineNumbers": true,
+    "scm.defaultViewMode": "tree",
+    "scm.showActionButton": false,
+    "task.allowAutomaticTasks": "off",
+    "telemetry.telemetryLevel": "off",
+    "problems.showCurrentInStatus": true,
+    "extensions.ignoreRecommendations": true,
+    "security.workspace.trust.enabled": false,
+    "debug.showBreakpointsInOverviewRuler": true,
+    "debug.console.collapseIdenticalLines": false,
+    "extensions.closeExtensionDetailsOnViewChange": true,
+    // TODO: terminal some
+    "terminal.integrated.rightClickBehavior": "nothing",
+    "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.shellIntegration.decorationsEnabled": "gutter",
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "terminal.integrated.commandsToSkipShell": [
+        "-workbench.action.terminal.paste"
+    ],
+    /*
+        Extension Builtin
+    */
+    "git.autorefresh": false,
+    "git.showCommitInput": false,
+    "git.inputValidation": "always",
+    "git.suggestSmartCommit": false,
+    "git.supportCancellation": true,
+    "git.enableStatusBarSync": false,
+    "git.autoRepositoryDetection": false,
+    "merge-conflict.autoNavigateNextConflict.enabled": true,
+    "markdown.editor.drop.enabled": false,
+    /*
+        Extension extra
+    */
+    // clangd
+    "clangd.checkUpdates": false,
+    "clangd.arguments": [
+        "--fallback-style=WebKit"
+    ],
+    // c/c++
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+    "C_Cpp.clang_format_fallbackStyle": "WebKit",
+    // TODO: vim
+    // 自动切换中英文输入法
+    "vim.leader": " ",
+    "vim.easymotion": true,
+    "vim.autoSwitchInputMethod.enable": true,
+    // linux
+    "vim.autoSwitchInputMethod.defaultIM": "keyboard-us",
+    "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/bin/fcitx5-remote -n",
+    "vim.autoSwitchInputMethod.switchIMCmd": "/usr/bin/fcitx5-remote -s {im}",
+    // windows
+    // "vim.autoSwitchInputMethod.defaultIM": "0",
+    // "vim.autoSwitchInputMethod.obtainIMCmd": "E:\\program\\tools\\im-select.exe",
+    // "vim.autoSwitchInputMethod.switchIMCmd": "E:\\program\\tools\\im-select.exe {im}",
+    "vim.normalModeKeyBindings": [
+        // map u && C-r: vim扩展自带的撤销很垃圾，让vim的撤销调用vscode自带的
+        {
+            "before": [
+                "u"
+            ],
+            "commands": [
+                "undo"
+            ]
+        },
+        {
+            "before": [
+                "<C-r>"
+            ],
+            "commands": [
+                "redo"
+            ]
+        },
+        {
+            "before": [
+                "<C-i>"
+            ],
+            "commands": [
+                "workbench.action.navigateForward"
+            ]
+        },
+        {
+            "before": [
+                "<C-o>"
+            ],
+            "commands": [
+                "workbench.action.navigateBack"
+            ]
+        },
+        {
+            "before": [
+                "<C-K>"
+            ],
+            "commands": [
+                "markdown.showPreviewToSide"
+            ]
+        }
+    ],
+    "window.zoomLevel": 1.2 // for linux wayland scale
+    // "window.titleBarStyle": "custom", // in tilling wm use native is beautiful than custom
+    // "window.autoDetectHighContrast": false, // hyprland will crash
+}
