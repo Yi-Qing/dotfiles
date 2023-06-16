@@ -90,6 +90,9 @@ trashFileClean()
 		if [ -e "${TRASHDIR}/${rm_files}" ];	then
 			echo "clean $(basename "${TRASHDIR}/${rm_files}")"
 			/bin/rm -rf "${TRASHDIR:?}/${rm_files}"
+		elif [ -L "${TRASHDIR}/${rm_files}" ];	then
+			echo "clean $(basename "${TRASHDIR}/${rm_files}")"
+			/bin/rm -rf "${TRASHDIR:?}/${rm_files}"
 		fi
 	done
 	IFS=$OLDIFS

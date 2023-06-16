@@ -2,11 +2,8 @@
 
 doMySudoEdit() {
     rawFile=$1
-    rawUid=$(stat -c %u "$1")
-    rawGid=$(stat -c %g "$1")
-    rawmode=$(stat -c %a "$1")
     random=$(/bin/md5sum < /proc/sys/kernel/random/uuid | /bin/cut -c 1-9)
-    newFile="/var/tmp/${random}$(basename "$1")"
+    newFile="/tmp/${random}$(basename "$1")"
 
     /bin/cp "${rawFile}" "${newFile}"
 
@@ -17,10 +14,8 @@ doMySudoEdit() {
 
     if ! diff "${newFile}" "${rawFile}" > /dev/null
     then
-        /bin/doas /bin/chmod "${rawmode}" "${rawFile}"
-        /bin/doas /bin/chown "${rawUid}" "${rawFile}"
-        /bin/doas /bin/chgrp "${rawGid}" "${rawFile}"
-        /bin/doas /bin/mv "${newFile}" "${rawFile}"
+        /bin/doas /bin/tee < "${newFile}" "${rawFile}" > /dev/null
+        /bin/rm "${newFile}"
     else
         /bin/echo "do not change"
         /bin/rm "${newFile}"

@@ -15,12 +15,9 @@ alias sort='sort -h'
 alias free='free -h'
 alias gcc='gcc -Wall -pedantic -Wextra'
 alias nm='nm -g'
-alias radeontop="radeontop -b 03"
 alias enca='enca -L zh_CN'
 alias wdiff='wdiff -n'
 alias scrcpy="scrcpy --power-off-on-close --turn-screen-off --stay-awake --no-clipboard-autosync &"
-alias xsecurelock="env XSECURELOCK_AUTH_TIMEOUT=3 XSECURELOCK_PASSWORD_PROMPT=emoticon xsecurelock"
-# alias xsecurelock="env XSECURELOCK_AUTH_TIMEOUT=3 XSECURELOCK_PASSWORD_PROMPT=time xsecurelock"
 
 # for fast run
 alias cl='clear'
@@ -30,30 +27,60 @@ alias ff='fzf'
 alias tz='tsocks trans -t zh'
 alias qq='exit'
 alias prime="DRI_PRIME=1"
+alias upvolum='wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+'
+alias dnvolum='wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-'
+alias getvolum='notify-send $(wpctl get-volume @DEFAULT_AUDIO_SINK@)'
 
 # for swap cmd
-alias rb='/bin/rm'
+# alias rb='/bin/rm'  # disable raw rm !!!!!
 alias rm='trash.sh'
 alias rl='trash.sh -l'
 alias rr='trash.sh -r'
 alias rc='trash.sh -c'
+alias top='btm'
+alias now='date +"周%a：%Y年 %m月 %d日 %T" && colunar | head -n 3 | grep -v "阳历"'
 alias mount='mount | column -t'
+alias sudoedit='doasedit.sh'
 
-_minicom()
-    {
-        log="${HOME}/.cache/minicom/$(date +%F_%T).log";
-        /bin/minicom -C "${log}" -c on -D /dev/ttyS"$1" -b 115200;
-        unset -f _minicom;
-    };
+_minicom() {
+    log="${HOME}/.cache/minicom/$(date +%F_%T).log";
+    /bin/minicom -C "${log}" -c on -D /dev/ttyS"$1" -b 115200;
+    unset -f _minicom;
+};
 alias minicom='_minicom'
 
 # proxy
-alias runproxy='export ALL_PROXY=socks5://127.0.0.1:7777'
-alias unproxy='unset ALL_PROXY'
+doproxy() {
+    export http_proxy="http://127.0.0.1:7778";
+    export https_proxy="http://127.0.0.1:7778";
+    export all_proxy="socks5://127.0.0.1:7777";
+
+    export HTTP_PROXY="http://127.0.0.1:7778";
+    export HTTPS_PROXY="http://127.0.0.1:7778";
+    export ALL_PROXY="socks5://127.0.0.1:7777";
+
+    echo "HTTP Proxy ON";
+}
+
+noproxy() {
+    unset http_proxy;
+    unset https_proxy;
+    unset all_proxy;
+
+    unset HTTP_PROXY;
+    unset HTTPS_PROXY;
+    unset ALL_PROXY;
+
+    echo "HTTP Proxy OFF";
+}
+
 alias ipinfo='tsocks curl ipinfo.io' # or url as cip.cc
 
 # rcm
-alias lsrc='RCRC=${HOME}/.config/rcm/rcrc lsrc'
+_lsrc() {
+    RCRC=${HOME}/.config/rcm/rcrc /usr/bin/lsrc "$@" | column -s ":" -t
+}
+alias lsrc='_lsrc'
 alias mkrc='RCRC=${HOME}/.config/rcm/rcrc mkrc'
 alias rcdn='RCRC=${HOME}/.config/rcm/rcrc rcdn'
 alias rcup='RCRC=${HOME}/.config/rcm/rcrc rcup'

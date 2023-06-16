@@ -15,24 +15,15 @@ shopt -s checkwinsize
 
 PS1='\[\033[07;36m\] \$ \[\033[01;33m\]\w\[\033[00m\] '
 
-# only for wsl
 # shellcheck source=/dev/null
 [[ -f ~/.bash_wsl ]] && . ~/.bash_wsl
 
 # shellcheck source=/dev/null
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
-# add PATH env
-if [[ -d ${HOME}/.local/bin/scripts ]]; then
-    export PATH="${PATH}:${HOME}/.local/bin/scripts"
-fi
+/bin/which say_todo.sh > /dev/null 2>&1 && say_todo.sh
 
-# export xz/zstd OPTIONS
-compression_thread_limit=$(($(nproc)-1))
-export XZ_DEFAULTS="-7 -T ${compression_thread_limit}"
-export ZSTD_CLEVEL=14
-export ZSTD_NBTHREADS=${compression_thread_limit}
-unset compression_thread_limit
-
-# say todo
-/bin/which say_todo.sh > /dev/null && say_todo.sh
+# # run to Hyprland in and only in tty 1
+# if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+#     exec Hyprland
+# fi
