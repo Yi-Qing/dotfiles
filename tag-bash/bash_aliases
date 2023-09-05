@@ -50,7 +50,7 @@ _minicom() {
 alias minicom='_minicom'
 
 # proxy
-doproxy() {
+runproxy() {
     export http_proxy="http://127.0.0.1:7778";
     export https_proxy="http://127.0.0.1:7778";
     export all_proxy="socks5://127.0.0.1:7777";
