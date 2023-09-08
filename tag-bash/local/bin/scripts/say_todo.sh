@@ -6,7 +6,7 @@ do_say_todo(){
 	TODO_LINE=$(cat < "${TODO_FILE}" | wc -l)
 
 	if [ "${TODO_LINE}" -ne 0 ]; then
-		cat < "${TODO_FILE}" | cowthink -f koala # | lolcat
+		cat < "${TODO_FILE}" | cowthink -f koala -n | lolcat
 	fi
 }
 
