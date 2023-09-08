@@ -6,19 +6,19 @@
     min-height: 0;
     margin: 0;
     padding: 0;
+    color: #d6ecf0;
     box-shadow: none;
     text-shadow: none;
     icon-shadow: none;
 }
 
 window#waybar {
-    color: white;
-    background: rgba(43, 48, 59, 0.5);
+    background: rgba(57, 82, 96, 0.5);
 }
 
 tooltip {
-    background: rgba(117, 135, 138, 0.5);
-    border: 2pt solid #90b1b1;
+    border: 1pt solid #90b1b1;
+    background: rgba(57, 82, 96, 0.8);
 }
 
 #window,
@@ -26,17 +26,17 @@ tooltip {
 	padding-left: 0;
     padding-right: 4pt;
     background: rgba(117, 135, 138, 0.5);
-    border-right: 1pt solid rgba(98, 42, 29, 0.5);
+    border-right: 1pt solid rgba(31, 0, 86, 0.5);
 }
 
 #workspaces button.active {
-    color: #ABE9B3;
-    border-top: 2pt solid #ffb3a7;
-    border-bottom: 2pt solid #f2be45;
+    color: #1bd1a5;
+    border-top: 2pt solid #ffa400;
+    border-bottom: 2pt solid #eaff56;
 }
 
 #window {
-    border-top: 2pt solid #44cef6;
+    border-top: 2pt solid #3eede7;
 }
 
 #mpd,
@@ -44,7 +44,7 @@ tooltip {
 {
     padding-left: 2pt;
     padding-right: 2pt;
-    background: rgba(43, 48, 59, 0.6);
+    background: rgba(57, 82, 96, 0.8);
 }
 
 #network,
@@ -56,15 +56,14 @@ tooltip {
 #battery {
     padding-left: 2pt;
     padding-right: 5pt;
-    /*background: rgba(144, 177, 177, 0.2);*/
-    background: rgba(117, 135, 138, 0.4);
-    border-right: 2pt solid rgba(98, 42, 29, 0.5);
+    background: rgba(117, 135, 138, 0.5);
+    border-right: 2pt solid rgba(31, 0, 86, 0.5);
 }
 
 #tray {
     padding-left: 4pt;
     padding-right: 4pt;
-    background-color: #88ada6;
+    background-color: #30dff3;
 }
 
 #tray > .passive {
@@ -73,6 +72,6 @@ tooltip {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
+    background-color: #c91f37;
 }
 

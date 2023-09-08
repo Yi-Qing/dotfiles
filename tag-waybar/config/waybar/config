@@ -38,7 +38,7 @@
             "on": ""
         },
         "on-click-right": "mpc toggle",
-        "tooltip-format": "{title} - {artist}\n {volume}\t({elapsedTime:%M:%S}/{totalTime:%M:%S})\t«{songPosition}/{queueLength}»"
+        "tooltip-format": " {title} - {artist}\n {volume}\t{elapsedTime:%M:%S}/{totalTime:%M:%S}\t«{songPosition}/{queueLength}»"
     },
     "custom/clock": {
         "interval": 1,
