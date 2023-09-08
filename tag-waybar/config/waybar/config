@@ -1,8 +1,8 @@
 {
     "layer": "top", // Waybar at top layer
     "spacing": 0,
-    "mode": "hide",
-    "start_hidden": true,
+    // "mode": "hide",
+    // "start_hidden": true,
     "output": ["eDP-1", "VGA"],
     "modules-left": ["hyprland/workspaces", "hyprland/window", "mpd"],
     "modules-center": ["custom/clock"],
