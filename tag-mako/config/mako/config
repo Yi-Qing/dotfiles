@@ -11,6 +11,7 @@ default-timeout=3000
 max-history=5
 output=eDP-1
 layer=overlay
+progress-color=source #424c50cc
 
 [category=Audio]
 group-by=category
@@ -18,3 +19,7 @@ group-by=category
 [category=MonBrightness]
 group-by=category
 
+[mode=locked]
+layer=top
+
+# vim: se ft=dosini:
