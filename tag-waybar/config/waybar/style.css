@@ -1,6 +1,6 @@
 * {
-    font-family: FiraCodeNerdFont, SourceHanSansCN, FreeMono, monospace;   /* sans-serif */
-    font-size: 15px;
+    font-family: FiraCodeNerdFont, SourceHanSansCN, monospace;   /* sans-serif */
+    font-size: 9pt;
     border: none;
     border-radius: 0;
     min-height: 0;
@@ -21,9 +21,8 @@ tooltip {
     background: rgba(57, 82, 96, 0.8);
 }
 
-#window,
 #workspaces button {
-	padding-left: 0;
+    padding-left: 0;
     padding-right: 4pt;
     background: rgba(117, 135, 138, 0.5);
     border-right: 1pt solid rgba(31, 0, 86, 0.5);
@@ -36,7 +35,11 @@ tooltip {
 }
 
 #window {
+    padding-left: 2pt;
+    padding-right: 4pt;
+    background: rgba(117, 135, 138, 0.5);
     border-top: 2pt solid #3eede7;
+    border-right: 1pt solid rgba(31, 0, 86, 0.5);
 }
 
 #mpd,
