@@ -39,7 +39,6 @@ tooltip {
     padding-right: 4pt;
     background: rgba(117, 135, 138, 0.5);
     border-top: 2pt solid #3eede7;
-    border-right: 1pt solid rgba(31, 0, 86, 0.5);
 }
 
 #mpd,
@@ -48,6 +47,10 @@ tooltip {
     padding-left: 2pt;
     padding-right: 2pt;
     background: rgba(57, 82, 96, 0.8);
+}
+
+#mpd {
+    border-left: 1pt solid rgba(31, 0, 86, 0.5);
 }
 
 #network,
@@ -66,10 +69,10 @@ tooltip {
 #tray {
     padding-left: 4pt;
     padding-right: 4pt;
-    background-color: #30dff3;
+    background-color: rgba(48, 223, 243, 0.5);
 }
 
-#tray > .passive {
+/* #tray > .passive {
     -gtk-icon-effect: dim;
 }
 
@@ -77,4 +80,4 @@ tooltip {
     -gtk-icon-effect: highlight;
     background-color: #c91f37;
 }
-
+*/

@@ -32,7 +32,7 @@
     },
     "mpd": {
         "format": " {title} - {artist}{singleIcon}",
-        "format-paused": " Paused",
+        "format-paused": "",
         "max-length": 35,
         "single-icons": {
             "on": ""
