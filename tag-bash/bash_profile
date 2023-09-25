@@ -26,8 +26,6 @@ export XDG_STATE_HOME="${HOME}/.local/state"
 # VDAPU
 export VDPAU_DRIVER=radeonsi
 
-# export XMODIFIERS=@im=fcitx	# XWayland
-
 #######################
 #                     #
 #    source bashrc    #

@@ -19,6 +19,9 @@ PS1='\[\033[07;36m\] \$ \[\033[01;33m\]\w\[\033[00m\] '
 [[ -f ~/.bash_wsl ]] && . ~/.bash_wsl
 
 # shellcheck source=/dev/null
+[[ -f ~/.bash_msys2 ]] && . ~/.bash_msys2
+
+# shellcheck source=/dev/null
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
 /bin/which say_todo.sh > /dev/null 2>&1 && say_todo.sh
