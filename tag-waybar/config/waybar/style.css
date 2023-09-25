@@ -1,5 +1,5 @@
 * {
-    font-family: FiraCodeNerdFont, SourceHanSansCN, monospace;   /* sans-serif */
+    font-family: SymbolsNerdFontMono, JetBrainsMono, SourceHanSansCN, monospace;   /* sans-serif */
     font-size: 9pt;
     border: none;
     border-radius: 0;
@@ -17,13 +17,13 @@ window#waybar {
 }
 
 tooltip {
-    border: 1pt solid #90b1b1;
+    border: 1pt solid #89b1b1;
     background: rgba(57, 82, 96, 0.8);
 }
 
 #workspaces button {
-    padding-left: 0;
-    padding-right: 4pt;
+    padding-left: 2pt;
+    padding-right: 2pt;
     background: rgba(117, 135, 138, 0.5);
     border-right: 1pt solid rgba(31, 0, 86, 0.5);
 }

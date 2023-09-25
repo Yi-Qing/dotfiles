@@ -11,7 +11,7 @@
         "format": "{icon}",
         "format-icons": {
             "1": "",
-            "2": "",
+            "2": "",
             "3": "",
             "4": "",
             "5": "",
@@ -26,16 +26,18 @@
     "hyprland/window": {
         "format": "{class} ☯",
         "rewrite": {
-            "codium-url-handler (.*)": "Code $1"
+            "codium-url-handler (.*)": "Code $1",
+            "org.wezfurlong.wezterm (.*)": "Wezterm $1"
         },
         "separate-outputs": true
     },
     "mpd": {
-        "format": " {title} - {artist}{singleIcon}",
+        "format": "{singleIcon} {title} - {artist}",
         "format-paused": "",
         "max-length": 35,
         "single-icons": {
-            "on": ""
+            "on": "",
+            "off": ""
         },
         "on-click-right": "mpc toggle",
         "tooltip-format": " {title} - {artist}\n {volume}\t{elapsedTime:%M:%S}/{totalTime:%M:%S}\t«{songPosition}/{queueLength}»"
