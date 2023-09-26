@@ -10,14 +10,14 @@
     "editor.wordWrapColumn": 120,
     "editor.minimap.enabled": false,
     "editor.lineNumbers": "relative",
-    "editor.fontFamily": "FiraCode Nerd Font",
+    "editor.fontFamily": "JetBrains Mono",
     "editor.wrappingIndent": "indent",
     "editor.cursorBlinking": "smooth",
     "editor.renderLineHighlight": "all",
     "editor.scrollBeyondLastLine": false,
     "editor.renderWhitespace": "trailing",
     "editor.emptySelectionClipboard": false,
-    "editor.codeLensFontFamily": "FiraCode Nerd Font",
+    "editor.codeLensFontFamily": "JetBrains Mono",
     "editor.acceptSuggestionOnEnter": "smart",
     "editor.cursorSmoothCaretAnimation": "off",
     "editor.copyWithSyntaxHighlighting": false,
@@ -50,6 +50,7 @@
     "explorer.confirmDelete": false,
     "explorer.compactFolders": false,
     "window.menuBarVisibility": "toggle",
+    "window.autoDetectHighContrast": false,
     // file
     "files.eol": "\n",
     "files.autoGuessEncoding": true,
@@ -92,7 +93,6 @@
     "terminal.integrated.rightClickBehavior": "nothing",
     "terminal.integrated.enablePersistentSessions": false,
     "terminal.integrated.shellIntegration.decorationsEnabled": "gutter",
-    "terminal.integrated.defaultProfile.windows": "Git Bash",
     "terminal.integrated.commandsToSkipShell": [
         "-workbench.action.terminal.paste"
     ],
@@ -120,18 +120,9 @@
     "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
     "C_Cpp.clang_format_fallbackStyle": "WebKit",
     // TODO: vim
-    // 自动切换中英文输入法
     "vim.leader": " ",
     "vim.easymotion": true,
     "vim.autoSwitchInputMethod.enable": true,
-    // linux
-    "vim.autoSwitchInputMethod.defaultIM": "keyboard-us",
-    "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/bin/fcitx5-remote -n",
-    "vim.autoSwitchInputMethod.switchIMCmd": "/usr/bin/fcitx5-remote -s {im}",
-    // windows
-    // "vim.autoSwitchInputMethod.defaultIM": "0",
-    // "vim.autoSwitchInputMethod.obtainIMCmd": "E:\\program\\tools\\im-select.exe",
-    // "vim.autoSwitchInputMethod.switchIMCmd": "E:\\program\\tools\\im-select.exe {im}",
     "vim.normalModeKeyBindings": [
         // map u && C-r: vim扩展自带的撤销很垃圾，让vim的撤销调用vscode自带的
         {
@@ -175,7 +166,40 @@
             ]
         }
     ],
-    "window.zoomLevel": 1.2 // for linux wayland scale
-    // "window.titleBarStyle": "custom", // in tilling wm use native is beautiful than custom
-    // "window.autoDetectHighContrast": false, // hyprland will crash
+    "Lua.runtime.version": "LuaJIT",
+    "Lua.format.defaultConfig": {
+        "indent_style": "space",
+        "indent_size": "4"
+    },
+    "Lua.diagnostics.neededFileStatus": {
+        "codestyle-check": "Any"
+    },
+    /* =====> only linux <===== */
+    "window.zoomLevel": 1.2, // for linux wayland scale
+    "vim.autoSwitchInputMethod.defaultIM": "keyboard-us",
+    "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/bin/fcitx5-remote -n",
+    "vim.autoSwitchInputMethod.switchIMCmd": "/usr/bin/fcitx5-remote -s {im}",
+    /* */ // =====> only linux <=====
+    /* =====> only windows <=====
+    "vim.autoSwitchInputMethod.defaultIM": "0",
+    "vim.autoSwitchInputMethod.obtainIMCmd": "E:\\program\\tools\\im-select.exe",
+    "vim.autoSwitchInputMethod.switchIMCmd": "E:\\program\\tools\\im-select.exe {im}",
+    "window.titleBarStyle": "custom", // in tilling wm use native is beautiful than custom
+    "terminal.integrated.env.windows": {
+        "MSYSTEM": "UCRT64",
+        "MSYS": "winsymlinks:nativestrict",
+        "CHERE_INVOKING": "enabled_from_arguments"
+    },
+    "terminal.integrated.profiles.windows": {
+        "bash (MSYS2)": {
+            "path": "C:\\Root\\MSYS2\\usr\\bin\\bash.exe",
+            "args": [
+                "--login",
+                "-i"
+            ]
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "bash (MSYS2)",
+    */ // =====> only windows <=====
 }
+// vi:ft=jsonc

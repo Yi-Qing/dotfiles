@@ -53,3 +53,5 @@
         "command": "workbench.view.extension.qq-explorer"
     }
 ]
+
+// vi:ft=jsonc
