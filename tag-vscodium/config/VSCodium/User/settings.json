@@ -116,9 +116,6 @@
     "clangd.arguments": [
         "--fallback-style=WebKit"
     ],
-    // c/c++
-    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
-    "C_Cpp.clang_format_fallbackStyle": "WebKit",
     // TODO: vim
     "vim.leader": " ",
     "vim.easymotion": true,
