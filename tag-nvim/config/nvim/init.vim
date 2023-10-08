@@ -1,8 +1,14 @@
 set nocompatible			"不与vi兼容
-colorscheme murphy          "配色方案
-colorscheme default         "配色方案
+set termguicolors
+colorscheme industry        "配色方案
+" colorscheme darkblue           "配色方案
+" colorscheme koehler           "配色方案
+" colorscheme evening           "配色方案
 "透明背景
-" highlight Normal guibg=NONE ctermbg=NONE
+set background=dark
+highlight Normal guibg=NONE ctermbg=None
+highlight DiffAdd guibg=NONE ctermbg=NONE
+highlight EndOfBuffer guibg=NONE ctermbg=NONE
 
 filetype on					"启动文件类型检查
 syntax on					"代码高亮
@@ -117,7 +123,7 @@ set fileencodings=ucs-bom,utf-8,gb18030,euc-jp,euc-kr,latin1
 " 文件编码 end
 
 " key map start
-inoremap , , 
+" inoremap , , 
 nnoremap <ESC> :noh<CR>
 " 使当前找到的字符所在行居中
 nnoremap n nzzzv
@@ -187,6 +193,4 @@ func SetTitle()
 endfunc
 
 " some others
-
-" nvim已经官方支持使用win32yank了，所以不需要手动指定wsl下的剪切板了
 
