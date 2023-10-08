@@ -41,6 +41,7 @@ alias top='btm'
 alias now='date +"周%a：%Y年 %m月 %d日 %T" && colunar | head -n 3 | grep -v "阳历"'
 alias mount='mount | column -t'
 alias sudoedit='doasedit.sh'
+alias img2sixel='wezterm imgcat'
 
 _minicom() {
     log="${HOME}/.cache/minicom/$(date +%F_%T).log";

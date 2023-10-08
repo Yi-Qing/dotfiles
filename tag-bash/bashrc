@@ -13,7 +13,11 @@ shopt -s histappend
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-PS1='\[\033[07;36m\] \$ \[\033[01;33m\]\w\[\033[00m\] '
+if [ $COLORTERM == "truecolor" ];   then
+    PS1='\[\e[1;7;38;2;23;124;176m\] \$ \[\e[3;38;2;62;237;231m\]\w\[\e[00m\] '
+else
+    PS1='\[\033[07;36m\] \$ \[\033[01;33m\]\w\[\033[00m\] '
+fi
 
 # shellcheck source=/dev/null
 [[ -f ~/.bash_wsl ]] && . ~/.bash_wsl
