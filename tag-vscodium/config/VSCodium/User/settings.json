@@ -197,6 +197,8 @@
         }
     },
     "terminal.integrated.defaultProfile.windows": "bash (MSYS2)",
+    "cmakeIntelliSence.cmakePath": "C:\\Root\\MSYS2\\ucrt64\\bin\\cmake.exe",
+    "clangd.path": "C:\\Root\\MSYS2\\ucrt64\\bin\\clangd.exe"
     */ // =====> only windows <=====
 }
 // vi:ft=jsonc
