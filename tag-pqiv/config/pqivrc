@@ -1,6 +1,7 @@
 [options]
 transparent-background=1
 fullscreen=1
+sort=1
 hide-info-box=1
 disable-backends=archive_cbx,libav,poppler,spectre
 end-of-files-action=quit
