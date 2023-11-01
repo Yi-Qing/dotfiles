@@ -128,7 +128,7 @@ $var"
 	elif [ "$param" = " -l" ];	then
 		# /bin/ls -A --color=auto "${TRASHDIR}"
 		if [ -e "${TRASHDB}" ];	then
-			/bin/column -t -s "|" < "${TRASHDB}"
+			/bin/column -t -s "|" --table-columns TIME,FILE,DIST --table-hide DIST < "${TRASHDB}"
 		else
 			/bin/echo "trash dir is empty"
 		fi
