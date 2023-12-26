@@ -26,10 +26,12 @@ alias lg='tig status'
 alias ff='fzf'
 alias tz='tsocks trans -t zh'
 alias qq='exit'
+alias po='poweroff'
 alias prime="DRI_PRIME=1"
 alias upvolum='wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+'
 alias dnvolum='wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-'
 alias getvolum='notify-send $(wpctl get-volume @DEFAULT_AUDIO_SINK@)'
+alias wtts='sudo powerstat -R -c -z'
 
 # for swap cmd
 # alias rb='/bin/rm'  # disable raw rm !!!!!
@@ -41,7 +43,7 @@ alias top='btm'
 alias now='date +"周%a：%Y年 %m月 %d日 %T" && colunar | head -n 3 | grep -v "阳历"'
 alias mount='mount | column -t'
 alias sudoedit='doasedit.sh'
-alias img2sixel='wezterm imgcat'
+alias imgcat='wezterm imgcat'
 
 _minicom() {
     log="${HOME}/.cache/minicom/$(date +%F_%T).log";
