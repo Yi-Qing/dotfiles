@@ -31,7 +31,7 @@ alias prime="DRI_PRIME=1"
 alias upvolum='wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+'
 alias dnvolum='wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-'
 alias getvolum='notify-send $(wpctl get-volume @DEFAULT_AUDIO_SINK@)'
-alias wtts='sudo powerstat -R -c -z'
+# alias wtts='sudo powerstat -R -c -z'
 
 # for swap cmd
 # alias rb='/bin/rm'  # disable raw rm !!!!!
@@ -45,12 +45,10 @@ alias mount='mount | column -t'
 alias sudoedit='doasedit.sh'
 alias imgcat='wezterm imgcat'
 
-_minicom() {
-    log="${HOME}/.cache/minicom/$(date +%F_%T).log";
-    /bin/minicom -C "${log}" -c on -D /dev/ttyS"$1" -b 115200;
-    unset -f _minicom;
-};
-alias minicom='_minicom'
+alias tio='/usr/bin/tio -l --log-file "${HOME}/.cache/serial/tio_$(date +%FT%T).log"'
+tio_clean() {
+    cat "$1" | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | col | tee "$1" > /dev/null
+}
 
 # proxy
 runproxy() {

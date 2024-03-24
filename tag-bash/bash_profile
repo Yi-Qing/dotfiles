@@ -7,7 +7,7 @@
 #######################
 # add PATH env
 if [ -d "${HOME}/.local/bin" ] ; then
-    PATH="${PATH}:${HOME}/.local/bin"
+    export PATH="${PATH}:${HOME}/.local/bin"
 fi
 
 if [[ -d ${HOME}/.local/bin/scripts ]]; then
