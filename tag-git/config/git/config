@@ -23,5 +23,6 @@
 [alias]
 	lg = log --abbrev-commit --graph
 	ss = status -suall
+    ltg = tag --list --sort=taggerdate
 [pull]
 	rebase = true
