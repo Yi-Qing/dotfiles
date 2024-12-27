@@ -52,10 +52,12 @@ tio_clean() {
 
 # proxy
 runproxy() {
+    export ftp_proxy="http://127.0.0.1:7778";
     export http_proxy="http://127.0.0.1:7778";
     export https_proxy="http://127.0.0.1:7778";
     export all_proxy="socks5://127.0.0.1:7777";
 
+    export FTP_PROXY="http://127.0.0.1:7778";
     export HTTP_PROXY="http://127.0.0.1:7778";
     export HTTPS_PROXY="http://127.0.0.1:7778";
     export ALL_PROXY="socks5://127.0.0.1:7777";
@@ -64,10 +66,12 @@ runproxy() {
 }
 
 noproxy() {
+    unset ftp_proxy;
     unset http_proxy;
     unset https_proxy;
     unset all_proxy;
 
+    unset FTP_PROXY;
     unset HTTP_PROXY;
     unset HTTPS_PROXY;
     unset ALL_PROXY;
