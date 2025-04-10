@@ -8,20 +8,30 @@
 
 4. dpi与ppi：`dpi * scale / ppi`越接近1，显示效果越符合程序需求
 5. 常见操作系统基准dpi为96
+
+6. 最佳的显示器摆放位置为：顶部与眼睛平齐或略低，中心点与顶部和眼睛构成三角形，眼睛对应的角度为15~20度。
+参考1：https://www.zhengshili.com/news/?4554.html
+参考2：https://www.careeraddict.com/monitor-eye-level
+参考3：https://zhuanlan.zhihu.com/p/534442565
+参考4：https://zhuanlan.zhihu.com/p/136343236
+参考5：https://zhuanlan.zhihu.com/p/40485528
 '''
+
+import math
 
 # 计算PPI/DPI
 def calc_ppi(W, H, size):
     return ((W * W + H * H) ** 0.5) / size
 
+# 显示常见的系统中，不同ppi对应的scale
 def print_scale(ppi):
-    scale = ppi / 96
+    dpi = 96
+    scale = ppi / dpi
     print(f"\nScale推荐(<=): {scale:.2f}")
 
     # dpi * scale / ppi = 1
     # scale * dpi = ppi
     # scale = ppi / dpi
-    dpi = 96
     scale = (dpi * 1) / ppi
     print(f"Scale 1.00: {scale:.2f}")
     scale = (dpi * 1.25) / ppi
@@ -33,12 +43,13 @@ def print_scale(ppi):
     scale = (dpi * 2) / ppi
     print(f"Scale 2.00: {scale:.2f}")
 
-def print_distance(ppi):
+# 显示不同视力观看相同ppi屏幕时，需要距离多远可以认为该屏幕是视网膜屏
+def print_retina(ppi):
     mm = 25.4 / ppi
     m = mm / 1000
     angle = 3.0 / 10000
 
-    print("\n不同视力推荐最小观看距离")
+    print("\n不同视力超过该距离观看就属于视网膜屏:")
     distance = m / angle
     print(f"1.0/5.0: {distance:.2f}m")
     distance = m / (angle / 0.8)
@@ -51,6 +62,21 @@ def print_distance(ppi):
     print(f"0.4/4.6: {distance:.2f}m")
     distance = m / (angle / 0.3)
     print(f"0.3/4.5: {distance:.2f}m")
+
+# 显示当前屏幕大小与横竖屏比例下推荐的观看距离，在这个距离以上可以不用移动脑袋即可舒适观看
+def print_distance(w, h, diagonal):
+    # 计算宽高比
+    ratio = w / h
+
+    # 根据宽高比和对角线长度(inch)计算屏幕实际长与宽
+    H = math.sqrt((diagonal ** 2) / (1 + ratio ** 2))
+    # W = ratio * H
+    # print(f"\n屏幕宽: {W:.2f}mm，屏幕高: {H:.2f}mm，屏幕长宽比: {ratio:.2f}")
+
+    # 角度转换为弧度
+    angle = 15 * math.pi / 180
+    distance = (H / 2) / math.tan(angle) / 1000
+    print(f"\n超过该距离即可完全不动脑袋观看: {distance:.2f}m")
 
 # 获取参数，参数为: 分辨率W，分辨率H，大小(inch)
 def __main__():
@@ -67,7 +93,9 @@ def __main__():
 
     print_scale(ppi)
 
-    print_distance(ppi)
+    print_retina(ppi)
+
+    print_distance(W, H, size * 25.4)
 
 if __name__ == '__main__':
     __main__()
