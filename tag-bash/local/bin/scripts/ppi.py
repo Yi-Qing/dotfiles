@@ -15,33 +15,26 @@
 参考3：https://zhuanlan.zhihu.com/p/534442565
 参考4：https://zhuanlan.zhihu.com/p/136343236
 参考5：https://zhuanlan.zhihu.com/p/40485528
+
+7. 书籍推荐使用5号字体(3.7mm)作为正文，且阅读距离不小于30~35cm，以33cm为准即阅读距离/120等于字体大小
+8. 正常来说，1pt = 1/72inch = 25.4/72mm, px = pt*dpi/72 = 25.4*dpi/(72*72)
+9. 96 dpi起源：https://learn.microsoft.com/en-us/archive/blogs/fontblog/where-does-96-dpi-come-from-in-windows
+    这里的意思就是：微软认为在那边年代，看显示器大概要比看书远1/3的距离，所以把dpi定为96px/inch。
+    也就是书籍中标准的72pd/inch放大1/3，如此一来，程序为了让人们看的更清晰，就需要把字体放大到12px，
+    这样在实际为72ppi的显示器上，一个文字大小就变成12pt，也即4.23mm，这样就等效正常看书的字体大小。
+
+    现阶段的程序员大多都忘记了这个本质原因，而是认为96dpi就使用12px的字体，这样用户就能看清楚字体了，
+    但这只是等效于用户在26~30cm的位置读一本标准书籍。
+    所以关于缩放，重点就是通过缩放让12px的字体在当前ppi与阅读距离等效于96dpi + 30~35cm阅读的大小。
+
+    已知：字体等效大小等于(px * 25.4 / dpi) * (读书距离 / 当前距离)，
+    这里px固定为12，dpi为96，读书距离为250~300mm，当前距离为x，则字体实际大小应该为x/120，缩放为：
 '''
 
 import math
 
-# 计算PPI/DPI
-def calc_ppi(W, H, size):
-    return ((W * W + H * H) ** 0.5) / size
-
-# 显示常见的系统中，不同ppi对应的scale
-def print_scale(ppi):
-    dpi = 96
-    scale = ppi / dpi
-    print(f"\nScale推荐(<=): {scale:.2f}")
-
-    # dpi * scale / ppi = 1
-    # scale * dpi = ppi
-    # scale = ppi / dpi
-    scale = (dpi * 1) / ppi
-    print(f"Scale 1.00: {scale:.2f}")
-    scale = (dpi * 1.25) / ppi
-    print(f"Scale 1.25: {scale:.2f}")
-    scale = (dpi * 1.5) / ppi
-    print(f"Scale 1.50: {scale:.2f}")
-    scale = (dpi * 1.75) / ppi
-    print(f"Scale 1.75: {scale:.2f}")
-    scale = (dpi * 2) / ppi
-    print(f"Scale 2.00: {scale:.2f}")
+# # 显示常见的系统中，不同ppi对应的scale
+# def print_scale(ppi, distance):
 
 # 显示不同视力观看相同ppi屏幕时，需要距离多远可以认为该屏幕是视网膜屏
 def print_retina(ppi):
@@ -63,39 +56,53 @@ def print_retina(ppi):
     distance = m / (angle / 0.3)
     print(f"0.3/4.5: {distance:.2f}m")
 
-# 显示当前屏幕大小与横竖屏比例下推荐的观看距离，在这个距离以上可以不用移动脑袋即可舒适观看
-def print_distance(w, h, diagonal):
-    # 计算宽高比
-    ratio = w / h
+# 显示当前屏幕大小下推荐的观看距离，在这个距离以上可以不用移动脑袋即可舒适观看
+def get_distance(W, H, diagonal) -> float:
+    # 垂直方向角度转换为弧度
+    angle = 15 * math.pi / 180  # 理论垂直舒适角度为上下各15度，
+    distance_V = (H / 2) / math.tan(angle) / 1000
+    print(f"垂直方向视角距离: {distance_V:.2f}m")
 
-    # 根据宽高比和对角线长度(inch)计算屏幕实际长与宽
+    # 水平方向角度转换为弧度
+    angle = 25 * math.pi / 180  # 理论水平舒适角度为左右各30度，20度更佳
+    distance_H = (W / 2) / math.tan(angle) / 1000
+    print(f"水平方向视角距离: {distance_H:.2f}m")
+
+    return max(distance_V, distance_H)
+
+def calc_monitor_parm(px_w, px_h, inch):
+    # 计算PPI
+    ppi = ((px_w ** 2 + px_h ** 2) ** 0.5) / inch
+
+    # 计算宽高比，然后根据宽高比和对角线长度(inch)计算屏幕实际长与宽
+    ratio = px_w / px_h
+    diagonal = inch * 25.4 # 对角线长度转换为mm
     H = math.sqrt((diagonal ** 2) / (1 + ratio ** 2))
-    # W = ratio * H
-    # print(f"\n屏幕宽: {W:.2f}mm，屏幕高: {H:.2f}mm，屏幕长宽比: {ratio:.2f}")
+    W = ratio * H
 
-    # 角度转换为弧度
-    angle = 15 * math.pi / 180
-    distance = (H / 2) / math.tan(angle) / 1000
-    print(f"\n超过该距离即可完全不动脑袋观看: {distance:.2f}m")
+    rec_distance = get_distance(W, H, diagonal)
 
-# 获取参数，参数为: 分辨率W，分辨率H，大小(inch)
+    return W, H, ppi , rec_distance
+
+# 获取参数，参数为: 分辨率W，分辨率H，大小(inch)，观看距离(m)
 def __main__():
     import sys
     if len(sys.argv) != 4:
-        print("Usage: python ppi.py <分辨率W> <分辨率H> <大小(inch)>")
+        print("Usage: python ppi.py <分辨率W> <分辨率H> <大小(inch)> <观看距离(m)>")
         return
-    W = int(sys.argv[1])
-    H = int(sys.argv[2])
-    size = float(sys.argv[3])
+    px_w = int(sys.argv[1])
+    px_h = int(sys.argv[2])
+    inch = float(sys.argv[3])
+    # cur_distance = float(sys.argv[4])
 
-    ppi = calc_ppi(W, H, size)
-    print(f"PPI/DPI: {ppi:.2f}")
-
-    print_scale(ppi)
+    size_w, size_h, ppi, rec_distance = calc_monitor_parm(px_w, px_h, inch)
+    print(f"屏幕宽: {size_w:.2f}mm\
+        屏幕高: {size_h:.2f}mm\
+        DPI/PPI: {ppi:.2f}\
+        推荐最小观看距离: {rec_distance:.2f}m"
+        )
 
     print_retina(ppi)
-
-    print_distance(W, H, size * 25.4)
 
 if __name__ == '__main__':
     __main__()
