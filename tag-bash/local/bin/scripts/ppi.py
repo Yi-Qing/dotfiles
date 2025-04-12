@@ -76,7 +76,7 @@ def calc_monitor_parm(px_w, px_h, inch):
     H = math.sqrt((diagonal ** 2) / (1 + ratio ** 2))
     W = ratio * H
 
-    rec_distance = get_distance(W, H, diagonal)
+    rec_distance = get_distance(W, H, diagonal) * 100
 
     return W, H, ppi, rec_distance
 
@@ -94,11 +94,12 @@ def __main__():
     size_w, size_h, ppi, rec_distance = calc_monitor_parm(px_w, px_h, inch)
     print(f"屏幕宽: {size_w:.2f}mm\
         屏幕高: {size_h:.2f}mm\
-        DPI/PPI: {ppi:.2f}\
-        推荐最小观看距离: {rec_distance:.2f}m\n")
+        DPI/PPI: {ppi:.2f}\n")
 
     print(f"当前距离屏幕{cur_distance:.2f}厘米，", end="")
     print_scale(cur_distance)
+    print(f"最小观看距离{rec_distance:.2f}厘米，", end="")
+    print_scale(rec_distance)
 
     print_retina(ppi)
 
