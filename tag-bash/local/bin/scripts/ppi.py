@@ -26,34 +26,56 @@ import math
 
 inch_2_mm = 25.4
 
-# 显示当前离屏距离下推荐的缩放值
-def print_scale(distance):
-    read_dist = 37  # 理论上是33，不过我爱护眼睛有问题吗
-    scale = (distance / read_dist) * 72 / 96
-    # 但是说实话，这个缩放倍率就显示不了啥了，所以我放宽标准，从小五改成六号字体
-    scale *= 7.5 / 9
-    print(f"推荐使用缩放：{scale:.6f} => ")
+# 假设现在程序都使用16px的大小了
+def print_scale(distance, ppi, scale) -> list:
+    pt = 12
+    scales = []
+    distance_diff = distance / 40   # 理论上国内推荐是33，不过我爱护眼睛有问题吗
+    dpi_diff = ppi / 72
 
-def print_px_scale(ppi):
-    print("\n正文使用如下磅值时推荐的对应px值:")
-    pt = 7.5
-    while pt <= 12:
-        px = pt * ppi / 72
-        print(f"{pt:4.1f}(磅) => {px:.3f}(px) => {int(px + 0.5)}(px)")
-        pt += 0.5
+    print(f"离屏(cm)", end="  ")
+    while pt >= 5:
+        if pt != 11.5 and pt != 9.5 and pt != 8.5:
+            if pt == 10.5:
+                print(f"老五", end="  ")
+            elif pt == 9:
+                print(f"小五", end="  ")
+            elif pt == 7.5:
+                print(f"六号", end="  ")
+            elif pt == 6.5:
+                print(f"小六", end="  ")
+            elif pt == 5.5:
+                print(f"七号", end="  ")
+            else:
+                print(f"{int(pt):2}pt", end="  ")
+        pt -= 0.5
+
+    pt = 12
+    print(f"\n{distance:6.2f}", end="\t  ")
+    while pt >= 5:
+        if pt != 11.5 and pt != 9.5 and pt != 8.5:
+            tmp = (((pt * dpi_diff * distance_diff) / 16) / scale) * 100
+            tmp = int(tmp + 0.5)
+            scales.append(tmp)
+            print(f"{tmp:3}%", end="  ")
+        pt -= 0.5
+    print()
+    return scales
 
 # 显示不同视力观看相同ppi屏幕时，需要距离多远可以认为该屏幕是视网膜屏
-def print_retina(ppi):
+def get_retina(ppi) -> list:
     mm = inch_2_mm / ppi
     m = mm / 1000
     angle = 3.0 / 10000 # 人眼最小视角
-    print("\n不同视力超过该距离观看就属于视网膜屏:")
+    dists = []
 
-    eyes = [[1.0, 5.0], [0.8, 4.9], [0.6, 4.8], [0.5, 4.7], [0.4, 4.6], [0.3, 4.5]]
+    eyes = [[1.5, 5.2], [1.2, 5.1], [1.0, 5.0], [0.8, 4.9], [0.6, 4.8], [0.5, 4.7], [0.4, 4.6], [0.3, 4.5]]
     for a, b in eyes:
         distance = m / (angle / a) * 100
-        print(f"{b:.1f} 视力推荐距离: {distance:.2f}厘米", end="\t")
-        print_scale(distance)
+        print(f"{b:.1f} 视力推荐距离: {distance:.2f}厘米")
+        dists.append([f"{b:.1f} 视力", distance])
+    print()
+    return dists
 
 # 显示当前屏幕大小下推荐的观看距离，在这个距离以上可以不用移动脑袋即可舒适观看
 def get_distance(W, H, diagonal) -> float:
@@ -79,34 +101,41 @@ def calc_monitor_parm(px_w, px_h, inch):
     H = math.sqrt((diagonal ** 2) / (1 + ratio ** 2))
     W = ratio * H
 
-    rec_distance = get_distance(W, H, diagonal) * 100
+    min_distance = get_distance(W, H, diagonal) * 100
 
-    return W, H, ppi, rec_distance
+    return W, H, ppi, min_distance
 
-# 获取参数，参数为: 分辨率W，分辨率H，大小(inch)，观看距离(m)
+# 获取参数，参数为: 分辨率W, 分辨率H, 大小(inch), [观看距离(m)], [全局缩放]
 def __main__():
     import sys
-    if len(sys.argv) != 5:
-        print("Usage: python ppi.py <分辨率W> <分辨率H> <大小(inch)> <观看距离(m)>")
+    args = len(sys.argv)
+    if args < 3:
+        print("Usage: python ppi.py <分辨率W> <分辨率H> <大小(inch)> [观看距离(m)] [全局缩放]")
         return
     px_w = int(sys.argv[1])
     px_h = int(sys.argv[2])
     inch = float(sys.argv[3])
-    cur_distance = float(sys.argv[4])
 
-    size_w, size_h, ppi, rec_distance = calc_monitor_parm(px_w, px_h, inch)
-    print(f"屏幕宽: {size_w:.2f}mm\
-        屏幕高: {size_h:.2f}mm\
-        DPI/PPI: {ppi:.2f}\n")
+    size_w, size_h, ppi, min_distance = calc_monitor_parm(px_w, px_h, inch)
+    print(f"屏幕宽: {size_w:.2f}mm\t"
+          f"屏幕高: {size_h:.2f}mm\t"
+          f"DPI/PPI: {ppi:.2f}"
+          f"\n推荐最小观看距离: {min_distance:.2f}cm\n")
 
-    print(f"当前距离屏幕{cur_distance:.2f}厘米，", end="")
-    print_scale(cur_distance)
-    print(f"最小观看距离{rec_distance:.2f}厘米，", end="")
-    print_scale(rec_distance)
+    if args > 4:
+        cur_distance = float(sys.argv[4])
+    else:
+        cur_distance = get_retina(ppi)[2][1]
+        return
+    # print(f"距离: {cur_distance:.2f}cm")
 
-    print_retina(ppi)
-
-    print_px_scale(ppi)
+    if args > 5:
+        global_scale = float(sys.argv[5])
+        if global_scale > 10:
+            global_scale = global_scale / 100
+    else:
+        global_scale = 1.0
+    print_scale(cur_distance, ppi, global_scale)
 
 if __name__ == '__main__':
     __main__()
