@@ -11,7 +11,7 @@
  7. 书籍推荐使用五号字体(10.5pt/3.7mm)作为正文，且阅读距离不小于30~35cm，但是小五号也可作为工具书的正文
  8. 正常来说，1pt = 1/72inch = 25.4/72mm, px = pt*dpi/72 = 25.4*dpi/(72*72)
  9. 关于缩放，重点就是通过缩放让对应pt的字体在当前ppi与阅读距离等效于72dpi + 30~35cm阅读的大小。
-10. 对于pt的缩放：(当前距离 / 阅读距离) * 72 / 96。
+10. 对于pt的缩放：(当前距离 / 阅读距离) * 目标字体大小。
 11. 对于px，老网站都是按照12px作为标准，现在才开始推荐使用16px，现行的大部分是14px。
 12. px和pt之间的关系为：px = pt * dpi / 72
 
@@ -26,41 +26,53 @@ import math
 
 inch_2_mm = 25.4
 
-# 假设现在程序都使用16px的大小了
-def print_scale(distance, ppi, scale) -> list:
-    pt = 12
-    scales = []
-    distance_diff = distance / 40   # 理论上国内推荐是33，不过我爱护眼睛有问题吗
-    dpi_diff = ppi / 72
+def print_pt_scale(pts, distance_diff, dpi_diff, scale) -> list:
+    print(f"\n缩放(pt)", end="  ")
+    for pt in pts:
+        tmp = int(pt * distance_diff / scale + 0.5)
+        print(f"{tmp:3}", end="   ")
 
-    print(f"离屏(cm)", end="  ")
-    while pt >= 5:
-        if pt != 11.5 and pt != 9.5 and pt != 8.5:
-            if pt == 10.5:
-                print(f"老五", end="  ")
-            elif pt == 9:
-                print(f"小五", end="  ")
-            elif pt == 7.5:
-                print(f"六号", end="  ")
-            elif pt == 6.5:
-                print(f"小六", end="  ")
-            elif pt == 5.5:
-                print(f"七号", end="  ")
-            else:
-                print(f"{int(pt):2}pt", end="  ")
-        pt -= 0.5
+    print(f"\n缩放(px)", end="  ")
+    for pt in pts:
+        tmp = int(pt * dpi_diff * distance_diff / scale + 0.5)
+        print(f"{tmp:3}", end="   ")
 
-    pt = 12
-    print(f"\n{distance:6.2f}", end="\t  ")
-    while pt >= 5:
-        if pt != 11.5 and pt != 9.5 and pt != 8.5:
-            tmp = (((pt * dpi_diff * distance_diff) / 16) / scale) * 100
+def print_px_scale(pts, distance_diff, dpi_diff, scale) -> list:
+    pxs = [ 16, 14, 12 ]
+    for px in pxs:
+        print(f"\n{int(px):4}(px)", end="  ")
+        for pt in pts:
+            tmp = (((pt * dpi_diff * distance_diff) / px) / scale) * 100
             tmp = int(tmp + 0.5)
-            scales.append(tmp)
             print(f"{tmp:3}%", end="  ")
-        pt -= 0.5
+
+def print_scale(distance, ppi, scale) -> list:
+    pts = [ 12, 10.5, 9, 7.5, 6.5, 5.5, 5, 6, 7, 8, 10, 11 ]
+    # 国内推荐的读书距离大概是33cm，但我用40，我乐意
+    distance_diff = distance / 40
+    # 理论上应该是72，但是我发现用72算发现浏览器缩放后太大了，用96才刚刚合适
+    dpi_diff = ppi / 96
+
+    print(f"{int(distance):4}(cm)", end="  ")
+    for pt in pts:
+        if pt == 12:
+            print(f"小四", end="  ")
+        elif pt == 10.5:
+            print(f"老五", end="  ")
+        elif pt == 9:
+            print(f"小五", end="  ")
+        elif pt == 7.5:
+            print(f"六号", end="  ")
+        elif pt == 6.5:
+            print(f"小六", end="  ")
+        elif pt == 5.5:
+            print(f"七号", end="  ")
+        else:
+            print(f"{int(pt):2}pt", end="  ")
+
+    print_pt_scale(pts, distance_diff, dpi_diff, scale)
+    print_px_scale(pts, distance_diff, dpi_diff, scale)
     print()
-    return scales
 
 # 显示不同视力观看相同ppi屏幕时，需要距离多远可以认为该屏幕是视网膜屏
 def get_retina(ppi) -> list:
@@ -69,7 +81,7 @@ def get_retina(ppi) -> list:
     angle = 3.0 / 10000 # 人眼最小视角
     dists = []
 
-    eyes = [[1.5, 5.2], [1.2, 5.1], [1.0, 5.0], [0.8, 4.9], [0.6, 4.8], [0.5, 4.7], [0.4, 4.6], [0.3, 4.5]]
+    eyes = [[1.0, 5.0], [0.8, 4.9], [0.6, 4.8], [0.5, 4.7], [0.4, 4.6], [0.3, 4.5], [1.5, 5.2], [1.2, 5.1]]
     for a, b in eyes:
         distance = m / (angle / a) * 100
         print(f"{b:.1f} 视力推荐距离: {distance:.2f}厘米")
