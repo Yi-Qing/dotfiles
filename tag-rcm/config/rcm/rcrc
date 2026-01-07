@@ -1,0 +1,3 @@
+TAGS="bash nvim git fcitx5"
+EXCLUDES="LICENSE README.md"
+
