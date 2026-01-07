@@ -1,0 +1,229 @@
+{
+    "[markdown]": {
+        "files.trimTrailingWhitespace": false
+    },
+    "editor.fontSize": 16,
+    "editor.formatOnSave": true,
+    "editor.fontLigatures": true,
+    "editor.formatOnPaste": true,
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 120,
+    "editor.minimap.enabled": false,
+    "editor.lineNumbers": "relative",
+    "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
+    "editor.wrappingIndent": "indent",
+    "editor.cursorBlinking": "smooth",
+    "editor.renderLineHighlight": "all",
+    "editor.scrollBeyondLastLine": false,
+    "editor.renderWhitespace": "trailing",
+    "editor.emptySelectionClipboard": false,
+    "editor.codeLensFontFamily": "JetBrainsMono Nerd Font Mono",
+    "editor.acceptSuggestionOnEnter": "smart",
+    "editor.cursorSmoothCaretAnimation": "off",
+    "editor.copyWithSyntaxHighlighting": false,
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    "editor.unicodeHighlight.includeComments": false,
+    "editor.unicodeHighlight.ambiguousCharacters": true,
+    "editor.unicodeHighlight.invisibleCharacters": true,
+    "editor.find.seedSearchStringFromSelection": "selection",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "never"
+    },
+    "editor.rulers": [
+        80
+    ],
+    // workbench
+    "workbench.reduceMotion": "on",
+    "workbench.startupEditor": "readme",
+    "workbench.enableExperiments": false, // may true
+    "workbench.editor.limit.enabled": true,
+    "workbench.layoutControl.enabled": false,
+    "workbench.editor.tabCloseButton": "off",
+    "workbench.colorTheme": "Solarized Dark",
+    "workbench.list.defaultFindMode": "filter",
+    "workbench.editor.limit.perEditorGroup": true,
+    "workbench.settings.enableNaturalLanguageSearch": false,
+    // window
+    "window.commandCenter": false,
+    "explorer.confirmDelete": false,
+    "search.collapseResults": "auto",
+    "explorer.compactFolders": false,
+    "window.menuBarVisibility": "toggle",
+    "chat.commandCenter.enabled": false,
+    "window.autoDetectHighContrast": false,
+    // file
+    "files.eol": "\n",
+    "files.autoGuessEncoding": true,
+    "files.trimFinalNewlines": true,
+    "files.insertFinalNewline": true,
+    "files.autoSave": "onFocusChange",
+    "files.trimTrailingWhitespace": true,
+    "search.useIgnoreFiles": false,
+    "files.exclude": {
+        "**/out*/": true,
+        "**/.vs*/": true,
+        "**/*.rej": true,
+        "**/*.user/": true,
+        "**/build*/": true,
+        "**/*.patch": true,
+        "**/.cache/": true,
+        "**/.clangd/": true,
+        "**/.clang-*": true,
+        "**/compile_commands.json*": true
+    },
+    "zenMode.hideStatusBar": false,
+    "zenMode.hideLineNumbers": false,
+    "task.autoDetect": "off",
+    "search.smartCase": true,
+    "search.seedOnFocus": true,
+    "search.showLineNumbers": true,
+    "scm.defaultViewMode": "tree",
+    "scm.showActionButton": false,
+    "task.allowAutomaticTasks": "off",
+    "telemetry.telemetryLevel": "off",
+    "problems.showCurrentInStatus": true,
+    "extensions.ignoreRecommendations": true,
+    "security.workspace.trust.enabled": false,
+    "debug.showBreakpointsInOverviewRuler": true,
+    "debug.console.collapseIdenticalLines": false,
+    "extensions.closeExtensionDetailsOnViewChange": true,
+    // TODO: terminal some
+    "terminal.integrated.rightClickBehavior": "nothing",
+    "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.shellIntegration.decorationsEnabled": "gutter",
+    "terminal.integrated.commandsToSkipShell": [
+        "-workbench.action.terminal.paste"
+    ],
+    "terminal.integrated.cursorBlinking": true,
+    "workbench.colorCustomizations": {
+        "terminal.foreground": "#D0D0D0",
+        "terminalCursor.background": "#D0D0D0",
+        "terminalCursor.foreground": "#D0D0D0",
+        "terminal.ansiBlack": "#000000",
+        "terminal.ansiBlue": "#0066FF",
+        "terminal.ansiBrightBlack": "#5C5855",
+        "terminal.ansiBrightBlue": "#0066FF",
+        "terminal.ansiBrightCyan": "#00FFFF",
+        "terminal.ansiBrightGreen": "#33FF00",
+        "terminal.ansiBrightMagenta": "#CC00FF",
+        "terminal.ansiBrightRed": "#FF0000",
+        "terminal.ansiBrightWhite": "#FFFFFF",
+        "terminal.ansiBrightYellow": "#FF0099",
+        "terminal.ansiCyan": "#00FFFF",
+        "terminal.ansiGreen": "#33FF00",
+        "terminal.ansiMagenta": "#CC00FF",
+        "terminal.ansiRed": "#FF0000",
+        "terminal.ansiWhite": "#D0D0D0",
+        "terminal.ansiYellow": "#FF0099"
+    },
+    /*
+        Extension Builtin
+    */
+    "git.autorefresh": false,
+    "git.showCommitInput": false,
+    "git.inputValidation": true,
+    "git.suggestSmartCommit": false,
+    "git.supportCancellation": true,
+    "git.enableStatusBarSync": false,
+    "git.autoRepositoryDetection": false,
+    "merge-conflict.autoNavigateNextConflict.enabled": true,
+    "markdown.editor.drop.enabled": "never",
+    /*
+        Extension extra
+    */
+    // clangd
+    "clangd.checkUpdates": false,
+    "clangd.arguments": [
+        "--fallback-style=WebKit"
+    ],
+    // TODO: vim
+    "vim.leader": " ",
+    "vim.easymotion": true,
+    "vim.autoSwitchInputMethod.enable": true,
+    "vim.normalModeKeyBindings": [
+        // map u && C-r: vim扩展自带的撤销很垃圾，让vim的撤销调用vscode自带的
+        {
+            "before": [
+                "u"
+            ],
+            "commands": [
+                "undo"
+            ]
+        },
+        {
+            "before": [
+                "<C-r>"
+            ],
+            "commands": [
+                "redo"
+            ]
+        },
+        {
+            "before": [
+                "<C-i>"
+            ],
+            "commands": [
+                "workbench.action.navigateForward"
+            ]
+        },
+        {
+            "before": [
+                "<C-o>"
+            ],
+            "commands": [
+                "workbench.action.navigateBack"
+            ]
+        },
+        {
+            "before": [
+                "<C-K>"
+            ],
+            "commands": [
+                "markdown.showPreviewToSide"
+            ]
+        }
+    ],
+    "Lua.runtime.version": "LuaJIT",
+    "Lua.format.defaultConfig": {
+        "indent_style": "space",
+        "indent_size": "4"
+    },
+    "Lua.diagnostics.neededFileStatus": {
+        "codestyle-check": "Any"
+    },
+    /* =====> only linux <===== */
+    "window.zoomLevel": 2, // for linux wayland scale
+    "vim.autoSwitchInputMethod.defaultIM": "keyboard-us",
+    "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/bin/fcitx5-remote -n",
+    "vim.autoSwitchInputMethod.switchIMCmd": "/usr/bin/fcitx5-remote -s {im}",
+    "workbench.activityBar.location": "hidden",
+    "workbench.editor.tabActionCloseVisibility": false,
+    "window.titleBarStyle": "native",
+    "SerialTerminal.log.savePath": "/home/yiqing/serialTerminal/terminalLog",
+    "SerialTerminal.script.savePath": "/home/yiqing/serialTerminal/scriptNoteBook", // use custom for bar shot keyBinding
+    /* */ // =====> only linux <=====
+    /* =====> only windows <=====
+    "vim.autoSwitchInputMethod.defaultIM": "0",
+    "vim.autoSwitchInputMethod.obtainIMCmd": "E:\\program\\tools\\im-select.exe",
+    "vim.autoSwitchInputMethod.switchIMCmd": "E:\\program\\tools\\im-select.exe {im}",
+    "terminal.integrated.env.windows": {
+        "MSYSTEM": "UCRT64",
+        "MSYS": "winsymlinks:nativestrict",
+        "CHERE_INVOKING": "enabled_from_arguments"
+    },
+    "terminal.integrated.profiles.windows": {
+        "bash (MSYS2)": {
+            "path": "C:\\Root\\MSYS2\\usr\\bin\\bash.exe",
+            "args": [
+                "--login",
+                "-i"
+            ]
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "bash (MSYS2)",
+    "cmakeIntelliSence.cmakePath": "C:\\Root\\MSYS2\\ucrt64\\bin\\cmake.exe",
+    "clangd.path": "C:\\Root\\MSYS2\\ucrt64\\bin\\clangd.exe"
+    */ // =====> only windows <=====
+}
+// vi:ft=jsonc
