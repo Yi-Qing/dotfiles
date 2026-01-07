@@ -1,0 +1,61 @@
+confirm-before-quit = false
+hide-mouse-cursor-when-typing = true
+draw-bold-text-with-light-colors = false
+# theme = 'Dracula'
+
+# for windows and msys2 shell
+working-dir = 'C:\Users\PC'
+
+[cursor]
+shape = 'block'
+blinking = true
+blinking-interval = 800
+
+[bell]
+audio = false
+visual = false
+
+[fonts]
+size = 18
+use-drawable-chars = false
+disable-warnings-not-found = true
+family = "JetBrainsMono Nerd Font Propo"
+extras = [
+    { family = "思源黑体 CN" },
+    { family = "微软雅黑" },
+    { family = "Noto Color Emoji" }
+]
+
+[navigation]
+mode = "BottomTab"
+use-split = true
+unfocused-split-opacity = 0.8
+hide-if-single = true
+
+[renderer]
+performance = "Low"
+backend = "Vulkan"
+
+[scroll]
+multiplier = 3.0
+divider = 1.0
+
+[window]
+opacity = 0.75
+mode = "Maximized"
+decorations = "Disabled"
+
+[platform]
+# default work dir need fix RIO.desktop links and add start path: %USERPROFILE%
+windows.shell.program = "D:\\msys64\\usr\\bin\\bash.exe"
+windows.shell.args = ["-l", "-i"]
+windows.window.width = 1024
+windows.window.height = 640
+windows.window.mode = "Windowed"
+windows.window.decorations = "Enabled"
+windows.env-vars = [
+    "MSYSTEM=UCRT64",
+    "MSYS=winsymlinks:nativestrict",
+    "MSYS2_PATH_TYPE=inherit",
+    "CHERE_INVOKING=enabled_from_arguments",
+]
