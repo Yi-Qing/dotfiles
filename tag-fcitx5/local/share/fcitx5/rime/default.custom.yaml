@@ -1,0 +1,9 @@
+patch:
+  ascii_composer:
+    good_old_caps_lock: true
+    switch_key: {Caps_Lock: noop, Control_L: noop, Control_R: noop, Shift_L: noop, Shift_R: noop}
+  schema_list:
+    - {schema: double_pinyin_flypy}
+  switcher:
+    caption: "〔方案選單〕"
+    hotkeys: ["Control+Alt+grave"]
