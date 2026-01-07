@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+
+# -*- coding: utf-8 -*-
+
+import os
+import sys
+import re
+from typing import List
+
+class Project:
+    name = ''
+    tasks = ""
+
+    def __init__(self, name):
+        self.name = name
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append(task)
+
+    def get_project(self) -> str:
+        # 如果tasks是空的，则返回空字符串
+        if not self.tasks:
+            return ''
+        return self.name + '\n' + '\n'.join(self.tasks)
+
+# 定义全局文件名
+TODO_FILE = os.path.join(os.environ['HOME'], '.local','share', 'todo', 'todo.say')
+
+all_projects: List[Project] = []
+
+def _do_say(text):
+    say = text + '\n\n'
+    for project in all_projects:
+        tmp = project.get_project()
+        if tmp:
+            say += tmp + '\n\n'
+    os.system('echo "{}" | cowsay -f koala -n | lolcat'.format(say.strip()))
+
+def _get_emergency_project(text):
+    all_projects.clear()
+    for line in text.split('\n'):
+        # 跳过空行
+        if not line.strip():
+            continue
+        # 如果以非'^['开头的行，则创建一个project，否则把这一行内容存入task中
+        if not line.startswith('['):
+            current_project = Project(line)
+            all_projects.append(current_project)
+        elif line.startswith('[ ]') and current_project is not None:
+            current_project.add_task(line)
+        else:
+            continue
+
+def _say_emergency(text):
+    _get_emergency_project(text)
+    _do_say("EMERGENCY TASKS")
+
+def _get_all_project(text):
+    all_projects.clear()
+    current_project = None
+    for line in text.split('\n'):
+        # 跳过空行
+        if not line.strip():
+            continue
+        # 如果以非'^['开头的行，把这一行内容存储到project中，后续非'^[x]'开头的行存入task中
+        if not line.startswith('['):
+            current_project = Project(line)
+            all_projects.append(current_project)
+        elif line.startswith('[x]') or line.startswith('[X]'):
+            continue
+        elif line.startswith('[') and current_project is not None:
+            current_project.add_task(line)
+        else:
+            continue
+
+def _say_all(text):
+    _get_all_project(text)
+    _do_say("ALL TOOD TASKS")
+
+def _get_done_project(text):
+    all_projects.clear()
+    current_project = None
+    for line in text.split('\n'):
+        # 跳过空行
+        if not line.strip():
+            continue
+        # 如果以非'^['开头的行，把这一行内容存储到project中，后续'^[x]'开头的行存入task中
+        if not line.startswith('['):
+            current_project = Project(line)
+            all_projects.append(current_project)
+        elif line.startswith('[x]') or line.startswith('[X]'):
+            if current_project is not None:
+                current_project.add_task(line)
+        else:
+            continue
+
+def _say_done(text):
+    _get_done_project(text)
+    _do_say("DONE TASKS")
+
+# 获取参数，如果参数为-d，执行_say_done，
+# 如果参数为-a，执行_say_all，
+# 否则执行_say_emergency
+def _main():
+
+    # 读取TODO文件内容
+    text = ''
+    if os.path.exists(TODO_FILE):
+        with open(TODO_FILE, 'r') as f:
+            text = f.read()
+            f.close()
+    else:
+        return
+
+    if not text:
+        return
+
+    # 除去最后一个空行
+    text = text.strip()
+    # 去除text第一行
+    text = '\n'.join(text.split('\n')[1:])
+
+    if len(sys.argv) == 2 and sys.argv[1] == '-d':
+        _say_done(text)
+    elif len(sys.argv) == 2 and sys.argv[1] == '-a':
+        _say_all(text)
+    else:
+        _say_emergency(text)
+
+if __name__ == '__main__':
+    _main()
