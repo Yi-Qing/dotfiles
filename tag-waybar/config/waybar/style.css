@@ -1,0 +1,83 @@
+* {
+    font-family: SymbolsNerdFontMono, JetBrainsMono, SourceHanSansCN, monospace;   /* sans-serif */
+    font-size: 9pt;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    color: #d6ecf0;
+    box-shadow: none;
+    text-shadow: none;
+    icon-shadow: none;
+}
+
+window#waybar {
+    background: rgba(57, 82, 96, 0.5);
+}
+
+tooltip {
+    border: 1pt solid #89b1b1;
+    background: rgba(57, 82, 96, 0.8);
+}
+
+#workspaces button {
+    padding-left: 2pt;
+    padding-right: 2pt;
+    background: rgba(117, 135, 138, 0.5);
+    border-right: 2pt solid rgba(31, 0, 86, 0.5);
+}
+
+#workspaces button.active {
+    color: #1bd1a5;
+    border-top: 2pt solid #ffa400;
+    border-bottom: 2pt solid #eaff56;
+}
+
+#window {
+    padding-left: 2pt;
+    padding-right: 4pt;
+    background: rgba(117, 135, 138, 0.5);
+    border-top: 2pt solid #3eede7;
+}
+
+#mpd,
+#custom-clock
+{
+    padding-left: 2pt;
+    padding-right: 2pt;
+    background: rgba(57, 82, 96, 0.8);
+}
+
+#mpd {
+    border-left: 1pt solid rgba(31, 0, 86, 0.5);
+}
+
+#network,
+#cpu,
+#memory,
+#temperature,
+#pulseaudio,
+#backlight,
+#battery {
+    padding-left: 2pt;
+    padding-right: 5pt;
+    background: rgba(117, 135, 138, 0.5);
+    border-right: 2pt solid rgba(31, 0, 86, 0.5);
+}
+
+#tray {
+    padding-left: 4pt;
+    padding-right: 4pt;
+    background-color: rgba(48, 223, 243, 0.5);
+}
+
+/* #tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #c91f37;
+}
+*/
