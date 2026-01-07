@@ -1,0 +1,28 @@
+[user]
+	name = Yi-Qing
+	email = yiqing.wang.sc@foxmail.com
+[color]
+	ui = auto
+[http]
+	postBuffer = 2000000000
+[https]
+	postBuffer = 2000000000
+[core]
+	editor = vim
+	autocrlf = input
+[diff]
+	tool = vimdiff
+[difftool]
+	trustExitCode = true
+#	cmd = nvim -d $LOCAL $REMOTE
+[merge]
+	tool = vimdiff
+[mergetool]
+	keepBackup = false
+#	cmd = nvim -f -c "Gdiff" "$MERGED"
+[alias]
+	lg = log --abbrev-commit --graph
+	ss = status -suall
+    ltg = tag --list --sort=taggerdate
+[pull]
+	rebase = true
