@@ -1,0 +1,39 @@
+#!/bin/env bash
+
+#######################
+#                     #
+#   init globle env   #
+#                     #
+#######################
+# add PATH env
+if [ -d "${HOME}/.local/bin" ] ; then
+    export PATH="${PATH}:${HOME}/.local/bin"
+fi
+
+if [[ -d ${HOME}/.local/bin/scripts ]]; then
+    export PATH="${PATH}:${HOME}/.local/bin/scripts"
+fi
+
+# tar xz/zstd OPTIONS
+compression_thread_limit=$(($(nproc)-1))
+export XZ_DEFAULTS="-7 -T ${compression_thread_limit}"
+export ZSTD_CLEVEL=14
+export ZSTD_NBTHREADS=${compression_thread_limit}
+unset compression_thread_limit
+
+# XDG Base Dir
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_STATE_HOME="${HOME}/.local/state"
+
+# VDAPU
+export VDPAU_DRIVER=radeonsi
+
+#######################
+#                     #
+#    source bashrc    #
+#                     #
+#######################
+# shellcheck source=/dev/null
+[[ -f ~/.bashrc ]] && . ~/.bashrc

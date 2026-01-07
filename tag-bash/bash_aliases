@@ -1,0 +1,123 @@
+# for cmd color
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias diff='diff --color=auto'
+
+# for cmd options
+alias l='ls -CF'
+alias ll='ls -lhF'
+alias la='ls -A'
+alias du='du -h'
+alias df='df -h'
+alias sort='sort -h'
+alias free='free -h'
+alias gcc='gcc -Wall -pedantic -Wextra'
+alias nm='nm -g'
+alias enca='enca -L zh_CN'
+alias wdiff='wdiff -n'
+alias scrcpy="scrcpy --power-off-on-close --turn-screen-off --stay-awake --no-clipboard-autosync &"
+
+# for fast run
+alias cl='clear'
+alias pt='ping -c4 t.cn'
+alias lg='lazygit'  # 'tig status'
+alias ff='fzf'
+alias tz='tsocks trans -t zh'
+alias qq='exit'
+alias po='poweroff'
+alias prime="DRI_PRIME=1"
+# alias upvolum='wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+'
+# alias dnvolum='wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-'
+# alias getvolum='notify-send $(wpctl get-volume @DEFAULT_AUDIO_SINK@)'
+# alias wtts='sudo powerstat -R -c -z'
+
+# for swap cmd
+# alias rb='/bin/rm'  # disable raw rm !!!!!
+alias rm='trash.sh'
+alias rl='trash.sh -l'
+alias rr='trash.sh -r'
+alias rc='trash.sh -c'
+alias top='btm'
+alias now='date +"周%a：%Y年 %m月 %d日 %T" && colunar | head -n 3 | grep -v "阳历"'
+alias lmount='mount | column -t'
+alias sudoedit='doasedit.sh'
+alias imgcat='wezterm imgcat'
+
+alias tio='/usr/bin/tio -L --log-file "${HOME}/.cache/serial/tio_$(date +%FT%T).log"'
+tio_clean() {
+    cat "$1" | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | col | tee "$1" > /dev/null
+}
+
+# proxy
+runproxy() {
+    _proxy_ip="127.0.0.1"
+    _socks_port="7777"
+    _http_port="7778"
+
+    export all_proxy="socks5://${_proxy_ip}:${_socks_port}";
+    export http_proxy="http://${_proxy_ip}:${_http_port}";
+    export ftp_proxy="$http_proxy";
+    export https_proxy="$http_proxy";
+    # export dns_proxy="$http_proxy";
+    # export rsync_proxy="http_proxy";
+
+    export ALL_PROXY="$all_proxy";
+    export FTP_PROXY="$http_proxy";
+    export HTTP_PROXY="$http_proxy";
+    export HTTPS_PROXY="$http_proxy";
+    # export DNS_PROXY="$http_proxy";
+    # export RSYNC_PROXY="http_proxy";
+
+    unset _proxy_ip
+    unset _socks_port
+    unset _http_port
+
+    echo "HTTP Proxy ON";
+}
+
+noproxy() {
+    unset all_proxy;
+    unset ftp_proxy;
+    unset http_proxy;
+    unset https_proxy;
+    # unset dns_proxy;
+    # unset rsync_proxy;
+
+    unset ALL_PROXY;
+    unset FTP_PROXY;
+    unset HTTP_PROXY;
+    unset HTTPS_PROXY;
+    # unset DNS_PROXY;
+    # unset RSYNC_PROXY;
+
+    echo "HTTP Proxy OFF";
+}
+
+alias ipinfo='tsocks curl ipinfo.io' # or url as cip.cc
+
+# rcm
+_lsrc() {
+    RCRC=${HOME}/.config/rcm/rcrc /usr/bin/lsrc "$@" | column -s ":" -t
+}
+alias lsrc='_lsrc'
+alias mkrc='RCRC=${HOME}/.config/rcm/rcrc mkrc'
+alias rcdn='RCRC=${HOME}/.config/rcm/rcrc rcdn'
+alias rcup='RCRC=${HOME}/.config/rcm/rcrc rcup'
+
+# simple script
+grepgbk() {
+    env LANG=LC_ALL grep -rnP --color=auto "$(echo "$1" | iconv -f UTF8 -t GB18030)" "$2";
+}
+
+# arch update pacman mirrorlists
+if [ -f /bin/pacman ];  then
+    mirrorup() {
+        mirror_urls="https://archlinux.org/mirrorlist/?country=CN&protocol=https&ip_version=4"
+        echo "start update pacman mirrorlists"
+        curl -s "${mirror_urls}" | grep edu | sed -e "s/^#Server/Server/" | rankmirrors -m 0.6 -v - | sudo tee /etc/pacman.d/mirrorlist > /dev/null
+        echo "update pacman mirrorlists done"
+        unset mirror_urls
+    }
+fi
