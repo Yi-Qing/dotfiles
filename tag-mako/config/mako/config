@@ -1,0 +1,25 @@
+font=monospace 13
+background-color=#75878ab3
+width=300
+height=175
+sort=-time
+border-size=2
+border-color=#2edfa3
+border-radius=15
+max-icon-size=32
+default-timeout=3000
+max-history=5
+output=eDP-1
+layer=overlay
+progress-color=source #424c50cc
+
+[category=Audio]
+group-by=category
+
+[category=MonBrightness]
+group-by=category
+
+[mode=locked]
+layer=top
+
+# vim: se ft=dosini:
