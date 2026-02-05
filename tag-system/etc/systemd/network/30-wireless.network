@@ -1,0 +1,11 @@
+[Match]
+Type=wlan
+
+[Network]
+DHCP=yes
+IgnoreCarrierLoss=2s
+LinkLocalAddressing=ipv4
+IPv6AcceptRA=no
+
+[DHCPv4]
+RoutMetric=20

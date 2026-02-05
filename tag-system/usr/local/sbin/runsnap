@@ -1,0 +1,91 @@
+#!/bin/sh
+
+FS_PARTUUID="4557ab72-841f-af4d-a987-640d477f835f"
+
+snap_clean()
+{
+    # only keep 49 root partion snap
+    mount PARTUUID=${FS_PARTUUID} /.snapshots/
+    snapCnt=$(find /.snapshots/snapshot -maxdepth 1 -name "auto_back@*" | wc -l)
+    if [ "${snapCnt}" -ge 30 ];	then
+        find /.snapshots/snapshot -maxdepth 1 -name "auto_back@*" | sort -r | sed -n '30,$p' | xargs -I {} btrfs subvolume delete {}
+    fi
+    umount /.snapshots
+}
+
+snap_kernel()
+{
+    cp /boot/initramfs-linux.img /boot/initramfs-linux-bak.img
+    cp /boot/vmlinuz-linux /boot/vmlinuz-linux-bak
+
+    # select rootfs, which have the old version kernel modules
+    mount PARTUUID=${FS_PARTUUID} /.snapshots/
+    selectStr=$(find /.snapshots/snapshot -maxdepth 1 -name "auto_back@*" | sort -r | head -n 1)
+    rm -rf /.snapshots/snapshot/@ro
+    # ln -sf "${selectStr}" /.snapshots/snapshot/@ro
+    ln -sf "$(basename """${selectStr}""")" /.snapshots/snapshot/@ro
+    umount /.snapshots
+}
+
+snap_reback()
+{
+    cp /boot/initramfs-linux-bak.img /boot/initramfs-linux.img
+    cp /boot/vmlinuz-linux-bak /boot/vmlinuz-linux
+
+    # select rootfs, which have the old version kernel modules
+    mount PARTUUID=${FS_PARTUUID} /.snapshots/
+    back=$(readlink /.snapshots/snapshot/@ro)
+    echo "will back snapshot $back"
+    btrfs subvolume delete /.snapshots/@
+    btrfs subvolume snapshot "/.snapshots/snapshot/$back" /.snapshots/@
+    umount /.snapshots
+}
+
+snap_root()
+{
+    mount PARTUUID=${FS_PARTUUID} /.snapshots/
+    timeStr=$(date +%F_%T)
+    btrfs subvolume snapshot -r /.snapshots/@ /.snapshots/snapshot/auto_back@"${timeStr}"
+    umount /.snapshots
+    snap_clean
+}
+
+snap_root_tmp()
+{
+    mount PARTUUID=${FS_PARTUUID} /.snapshots/
+    if [ -e /.snapshots/snapshot/root_tmp ];	then
+        btrfs subvolume delete /.snapshots/snapshot/root_tmp
+    fi
+    btrfs subvolume snapshot /.snapshots/@ /.snapshots/snapshot/root_tmp
+    umount /.snapshots
+}
+
+snap_home()
+{
+    mount PARTUUID=${FS_PARTUUID} /.snapshots/
+    if [ -e /.snapshots/snapshot/home_ro ];	then
+        btrfs subvolume delete /.snapshots/snapshot/home_ro
+    fi
+    btrfs subvolume snapshot -r /.snapshots/home /.snapshots/snapshot/home_ro
+    umount /.snapshots
+}
+
+if [ $# -ne 1 ];	then
+    echo "useage: $0 pacman/kernel/home/root/clean/reback"
+else
+    if [ "$1" = "pacman" ];	then
+        snap_root
+    elif [ "$1" = "kernel" ];	then
+        snap_kernel
+    elif [ "$1" = "home" ];	then
+        snap_home
+    elif [ "$1" = "root" ];	then
+        snap_root_tmp
+    elif [ "$1" = "clean" ];	then
+        snap_clean
+    elif [ "$1" = "reback" ];	then
+        snap_reback
+    else
+        echo "useage: $0 pacman/kernel/home/root/clean/reback"
+    fi
+fi

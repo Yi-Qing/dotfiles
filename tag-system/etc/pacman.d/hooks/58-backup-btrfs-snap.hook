@@ -1,0 +1,13 @@
+# Back up the root partition before changing something by pacman
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+[Action]
+Description = "Back up the root partition"
+When = PreTransaction
+Exec = /usr/local/sbin/runsnap pacman
+Depends = btrfs-progs
+AbortOnFail

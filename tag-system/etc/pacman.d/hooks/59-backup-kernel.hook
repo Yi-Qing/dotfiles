@@ -1,0 +1,12 @@
+# Backup old kernel files
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = linux
+[Action]
+Description = "Backup old kernel files"
+When = PreTransaction
+Exec = /usr/local/sbin/runsnap kernel
+Depends = coreutils
