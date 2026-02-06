@@ -23,6 +23,8 @@
 [alias]
 	lg = log --abbrev-commit --graph
 	ss = status -suall
-    ltg = tag --list --sort=taggerdate
+	tg = tag --list --sort=-creatordate
 [pull]
 	rebase = true
+[http "https://github.com"]
+	proxy = socks5://127.0.0.1:7777
