@@ -53,8 +53,73 @@
         "command": "workbench.view.extension.qq-explorer"
     },
     {
-        "key": "ctrl+shift+alt+r",
+        "key": "ctrl+alt+q",
+        "command": "serialport.serialportView.focus"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "selectNextSuggestion",
+        "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+    },
+    {
+        "key": "ctrl+alt+p",
+        "command": "selectPrevSuggestion",
+        "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+    },
+    {
+        "key": "ctrl+alt+d",
+        "command": "workbench.view.debug",
+        "when": "viewContainer.workbench.view.debug.enabled"
+    },
+    {
+        "key": "ctrl+alt+1",
+        "command": "workbench.action.terminal.focusAtIndex1"
+    },
+    {
+        "key": "ctrl+alt+2",
+        "command": "workbench.action.terminal.focusAtIndex2"
+    },
+    {
+        "key": "ctrl+alt+3",
+        "command": "workbench.action.terminal.focusAtIndex3"
+    },
+    {
+        "key": "ctrl+alt+4",
+        "command": "workbench.action.terminal.focusAtIndex4"
+    },
+    {
+        "key": "ctrl+alt+5",
+        "command": "workbench.action.terminal.focusAtIndex5"
+    },
+    {
+        "key": "ctrl+alt+6",
+        "command": "workbench.action.terminal.focusAtIndex6"
+    },
+    {
+        "key": "ctrl+alt+7",
+        "command": "workbench.action.terminal.focusAtIndex7"
+    },
+    {
+        "key": "ctrl+alt+oem_plus",
+        "command": "workbench.action.toggleMaximizedPanel"
+    },
+    {
+        "key": "ctrl+alt+oem_3",
+        "command": "workbench.action.terminal.newLocal"
+    },
+    {
+        "key": "ctrl+shift+r",
         "command": "workbench.view.remote"
+    },
+    {
+        "key": "ctrl+alt+c",
+        "command": "-fittencode.startChat",
+        "when": "true"
+    },
+    {
+        "key": "ctrl+alt+c",
+        "command": "workbench.view.extension.marscode"
     }
 ]
 // vi:ft=jsonc
+

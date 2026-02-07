@@ -2,6 +2,7 @@
     "[markdown]": {
         "files.trimTrailingWhitespace": false
     },
+    "editor.tabSize": 4,
     "editor.fontSize": 16,
     "editor.formatOnSave": true,
     "editor.fontLigatures": true,
@@ -10,20 +11,20 @@
     "editor.wordWrapColumn": 120,
     "editor.minimap.enabled": false,
     "editor.lineNumbers": "relative",
-    "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
+    "editor.fontFamily": "JetBrainsMono Nerd Font Propo",
     "editor.wrappingIndent": "indent",
     "editor.cursorBlinking": "smooth",
     "editor.renderLineHighlight": "all",
     "editor.scrollBeyondLastLine": false,
     "editor.renderWhitespace": "trailing",
     "editor.emptySelectionClipboard": false,
-    "editor.codeLensFontFamily": "JetBrainsMono Nerd Font Mono",
+    "editor.codeLensFontFamily": "JetBrainsMono Nerd Font Propo",
     "editor.acceptSuggestionOnEnter": "smart",
     "editor.cursorSmoothCaretAnimation": "off",
     "editor.copyWithSyntaxHighlighting": false,
     "editor.unicodeHighlight.nonBasicASCII": false,
     "editor.inlayHints.enabled": "offUnlessPressed",
-    "editor.unicodeHighlight.includeComments": false,
+    "editor.unicodeHighlight.includeStrings": false,
     "editor.unicodeHighlight.ambiguousCharacters": true,
     "editor.unicodeHighlight.invisibleCharacters": true,
     "editor.find.seedSearchStringFromSelection": "selection",
@@ -35,14 +36,13 @@
     ],
     // workbench
     "workbench.reduceMotion": "on",
-    "workbench.startupEditor": "readme",
     "workbench.enableExperiments": false, // may true
     "workbench.editor.limit.enabled": true,
     "workbench.layoutControl.enabled": false,
-    "workbench.editor.tabCloseButton": "off",
-    "workbench.colorTheme": "Solarized Dark",
+    "workbench.activityBar.location": "hidden",
     "workbench.list.defaultFindMode": "filter",
     "workbench.editor.limit.perEditorGroup": true,
+    "workbench.editor.tabActionCloseVisibility": false,
     "workbench.settings.enableNaturalLanguageSearch": false,
     // window
     "window.commandCenter": false,
@@ -61,16 +61,27 @@
     "files.trimTrailingWhitespace": true,
     "search.useIgnoreFiles": false,
     "files.exclude": {
+        "**/*.o": true,
         "**/out*/": true,
         "**/.vs*/": true,
         "**/*.rej": true,
+        "**/*.spec": true,
         "**/*.user/": true,
-        "**/build*/": true,
+        "**/build[!r]*/": true,
+        "**/buildr[!o]*/": true,
+        "**/buildro[!o]*/": true,
+        "**/buildroo[!t]*/": true,
+        "**/.venv/": true,
+        "**/dist/": true,
+        "**/.gitignore": true,
         "**/*.patch": true,
         "**/.cache/": true,
         "**/.clangd/": true,
         "**/.clang-*": true,
-        "**/compile_commands.json*": true
+        "**/compile_commands.*": true,
+        "**/.qmake.stash": true,
+        "**/moc_*.cpp": true,
+        "**/moc_*.h": true,
     },
     "zenMode.hideStatusBar": false,
     "zenMode.hideLineNumbers": false,
@@ -89,6 +100,8 @@
     "debug.console.collapseIdenticalLines": false,
     "extensions.closeExtensionDetailsOnViewChange": true,
     // TODO: terminal some
+    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.scrollback": 5000,
     "terminal.integrated.rightClickBehavior": "nothing",
     "terminal.integrated.enablePersistentSessions": false,
     "terminal.integrated.shellIntegration.decorationsEnabled": "gutter",
@@ -128,14 +141,19 @@
     "git.enableStatusBarSync": false,
     "git.autoRepositoryDetection": false,
     "merge-conflict.autoNavigateNextConflict.enabled": true,
-    "markdown.editor.drop.enabled": "never",
+    "markdown.editor.drop.enabled": "smart",
     /*
         Extension extra
     */
+    // fittencode
+    "fittencode.languagePreference.displayPreference": "zh-cn",
+    "fittencode.languagePreference.commentPreference": "zh-cn",
     // clangd
+    "clangd.onConfigChanged": "restart",
     "clangd.checkUpdates": false,
     "clangd.arguments": [
-        "--fallback-style=WebKit"
+        "--fallback-style=WebKit",
+        "--header-insertion=never"
     ],
     // TODO: vim
     "vim.leader": " ",
@@ -184,6 +202,33 @@
             ]
         }
     ],
+    "todohighlight.keywords": [
+        {
+            "text": "NOTE:",
+            "color": "#549688",
+            "backgroundColor": "rgba(0,0,0,.2)",
+            "overviewRulerColor": "#549688",
+            "border": "1px solid #549688",
+            "borderRadius": "2px", // NOTE: Must be used with the 'border' attribute
+        },
+        {
+            "text": "FIXME:",
+            "color": "#f47983",
+            "backgroundColor": "rgba(0,0,0,.2)",
+            "overviewRulerColor": "#f47983",
+            "border": "1px solid #f47983",
+            "borderRadius": "2px", // NOTE: Must be used with the 'border' attribute
+        },
+        {
+            "text": "TODO:",
+            "color": "#f0c239",
+            "backgroundColor": "rgba(0,0,0,.2)",
+            "overviewRulerColor": "#f0c239",
+            "border": "1px solid #f0c239",
+            "borderRadius": "2px", // NOTE: Must be used with the 'border' attribute
+        }
+    ],
+
     "Lua.runtime.version": "LuaJIT",
     "Lua.format.defaultConfig": {
         "indent_style": "space",
@@ -192,8 +237,12 @@
     "Lua.diagnostics.neededFileStatus": {
         "codestyle-check": "Any"
     },
-    /* =====> only linux <===== */
-    "window.zoomLevel": 2, // for linux wayland scale
+    /* ================================
+     * =====> only linux start <=====
+     * ================================
+     */
+    /*
+    "window.titleBarStyle": "native", // in tilling wm use native is better than custom
     "vim.autoSwitchInputMethod.defaultIM": "keyboard-us",
     "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/bin/fcitx5-remote -n",
     "vim.autoSwitchInputMethod.switchIMCmd": "/usr/bin/fcitx5-remote -s {im}",
@@ -202,19 +251,30 @@
     "window.titleBarStyle": "native",
     "SerialTerminal.log.savePath": "/home/yiqing/serialTerminal/terminalLog",
     "SerialTerminal.script.savePath": "/home/yiqing/serialTerminal/scriptNoteBook", // use custom for bar shot keyBinding
-    /* */ // =====> only linux <=====
-    /* =====> only windows <=====
+    */
+    // ================================
+    // =====> only linux end <=====
+    // ================================
+
+
+    // ================================
+    // =====> only windows start <=====
+    // ================================
     "vim.autoSwitchInputMethod.defaultIM": "0",
-    "vim.autoSwitchInputMethod.obtainIMCmd": "E:\\program\\tools\\im-select.exe",
-    "vim.autoSwitchInputMethod.switchIMCmd": "E:\\program\\tools\\im-select.exe {im}",
+    "vim.autoSwitchInputMethod.obtainIMCmd": "C:\\Users\\PC\\AppData\\Local\\im-select-mspy\\im-select-mspy.bat",
+    "vim.autoSwitchInputMethod.switchIMCmd": "C:\\Users\\PC\\AppData\\Local\\im-select-mspy\\im-select-mspy.bat {im}",
+    "commands.filters": {
+        "workbench.action.terminal.newLocal": "on" // value: off, ask, on
+    },
     "terminal.integrated.env.windows": {
         "MSYSTEM": "UCRT64",
-        "MSYS": "winsymlinks:nativestrict",
-        "CHERE_INVOKING": "enabled_from_arguments"
+        "MSYS": "winsymlinks:nativestrict",	// symlink
+        "MSYS2_PATH_TYPE": "inherit",       // use windows path
+        "CHERE_INVOKING": "enabled_from_arguments",	// open shell in current directory
     },
     "terminal.integrated.profiles.windows": {
         "bash (MSYS2)": {
-            "path": "C:\\Root\\MSYS2\\usr\\bin\\bash.exe",
+            "path": "D:\\msys64\\usr\\bin\\bash.exe",
             "args": [
                 "--login",
                 "-i"
@@ -222,8 +282,27 @@
         }
     },
     "terminal.integrated.defaultProfile.windows": "bash (MSYS2)",
-    "cmakeIntelliSence.cmakePath": "C:\\Root\\MSYS2\\ucrt64\\bin\\cmake.exe",
-    "clangd.path": "C:\\Root\\MSYS2\\ucrt64\\bin\\clangd.exe"
-    */ // =====> only windows <=====
+    "python.defaultInterpreterPath": "D:\\msys64\\ucrt64\\bin\\python.exe",
+    "window.zoomLevel": 0.6,
+    "terminal.integrated.allowChords": false,
+    "remote.SSH.httpProxy": {
+        "httpProxy": "http://192.168.20.2:10808",
+    },
+    "remote.SSH.httpsProxy": {
+        "httpsProxy": "http://192.168.20.2:10808",
+    },
+    "telemetry.feedback.enabled": false,
+    "update.enableWindowsBackgroundUpdates": false,
+    "update.mode": "none",
+    "workbench.startupEditor": "none",
+    "fittencode.inlineCompletion.enable": true,
+    "fittencode.action.startChat.showInEditorContextMenu": false,
+    "fittencode.delayCompletion.delaytime": 10,
+    "marscode.chatLanguage": "cn",
+    "marscode.codeCompletionPro": {
+        "enableCodeCompletionPro": true
+    },
+    "terminal.integrated.initialHint": false,
 }
 // vi:ft=jsonc
+
