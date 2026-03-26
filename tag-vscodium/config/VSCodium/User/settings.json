@@ -157,6 +157,7 @@
     ],
     // TODO: vim
     "vim.leader": " ",
+    "vim.foldfix": true,
     "vim.easymotion": true,
     "vim.autoSwitchInputMethod.enable": true,
     "vim.normalModeKeyBindings": [
